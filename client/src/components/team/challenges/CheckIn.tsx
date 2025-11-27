@@ -8,7 +8,7 @@ import type { Station } from '@/types'
 interface CheckInProps {
   station: Station
   teamCode: string
-  onSuccess: (message: string, points?: number) => void
+  onSuccess: (message: string, points?: number, nextStation?: { id: number; stationNumber: number; title: string }) => void
   onError: (message: string) => void
 }
 
@@ -19,7 +19,7 @@ function CheckIn({ station, teamCode, onSuccess, onError }: CheckInProps) {
     setChecking(true)
     try {
       const response = await progressAPI.checkIn(station.id, teamCode)
-      onSuccess(response.data.message, response.data.pointsEarned)
+      onSuccess(response.data.message, response.data.pointsEarned, response.data.nextStation)
     } catch (error: any) {
       onError(error.message || 'Failed to check in')
     } finally {

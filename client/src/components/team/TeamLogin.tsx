@@ -1,41 +1,41 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useTeam } from '@/context/TeamContext'
-import toast from 'react-hot-toast'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Loader2, Landmark, Sparkles, BarChart3, Vase } from 'lucide-react'
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useTeam } from "@/context/TeamContext";
+import toast from "react-hot-toast";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Loader2, Landmark, Sparkles, BarChart3 } from "lucide-react";
 
-type Mode = 'login' | 'register'
+type Mode = "login" | "register";
 
 function TeamLogin() {
-  const [mode, setMode] = useState<Mode>('login')
-  const [teamCode, setTeamCode] = useState('')
-  const [teamName, setTeamName] = useState('')
-  const { login, register, isLoading } = useTeam()
+  const [mode, setMode] = useState<Mode>("login");
+  const [teamCode, setTeamCode] = useState("");
+  const [teamName, setTeamName] = useState("");
+  const { login, register, isLoading } = useTeam();
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const result = await login(teamCode.trim())
+    e.preventDefault();
+    const result = await login(teamCode.trim());
     if (result.success) {
-      toast.success('Welcome back to the treasure hunt!')
+      toast.success("Welcome back to the treasure hunt!");
     } else {
-      toast.error(result.error)
+      toast.error(result.error);
     }
-  }
+  };
 
   const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const result = await register(teamName.trim())
+    e.preventDefault();
+    const result = await register(teamName.trim());
     if (result.success) {
       toast.success(`Team registered! Your code is: ${result.teamCode}`, {
         duration: 10000,
-      })
+      });
     } else {
-      toast.error(result.error)
+      toast.error(result.error);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-dark via-blue-deep to-blue-dark px-3 py-6 md:px-4 md:py-8">
@@ -48,8 +48,12 @@ function TeamLogin() {
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-cinzel text-gold mb-2">
             Treasure of the Nile
           </h1>
-          <p className="text-papyrus/70 text-base md:text-lg">Volume II: The Lost Relics</p>
-          <div className="mt-3 md:mt-4 text-gold/50 text-xs md:text-sm">University of Malaya</div>
+          <p className="text-papyrus/70 text-base md:text-lg">
+            Volume II: The Lost Relics
+          </p>
+          <div className="mt-3 md:mt-4 text-gold/50 text-xs md:text-sm">
+            University of Malaya
+          </div>
         </div>
 
         {/* Login/Register Card */}
@@ -58,26 +62,29 @@ function TeamLogin() {
           <div className="flex gap-2 mb-4 md:mb-6">
             <Button
               type="button"
-              onClick={() => setMode('login')}
-              variant={mode === 'login' ? 'default' : 'outline'}
+              onClick={() => setMode("login")}
+              variant={mode === "login" ? "default" : "outline"}
               className="flex-1"
             >
               Login
             </Button>
             <Button
               type="button"
-              onClick={() => setMode('register')}
-              variant={mode === 'register' ? 'default' : 'outline'}
+              onClick={() => setMode("register")}
+              variant={mode === "register" ? "default" : "outline"}
               className="flex-1"
             >
               Register
             </Button>
           </div>
 
-          {mode === 'login' ? (
+          {mode === "login" ? (
             <form onSubmit={handleLogin} className="space-y-3 md:space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="teamCode" className="text-gold font-semibold text-sm md:text-base">
+                <Label
+                  htmlFor="teamCode"
+                  className="text-gold font-semibold text-sm md:text-base"
+                >
                   Team Code
                 </Label>
                 <Input
@@ -94,11 +101,7 @@ function TeamLogin() {
                   Enter your team code to continue your quest
                 </p>
               </div>
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading}
-              >
+              <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -115,7 +118,10 @@ function TeamLogin() {
           ) : (
             <form onSubmit={handleRegister} className="space-y-3 md:space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="teamName" className="text-gold font-semibold text-sm md:text-base">
+                <Label
+                  htmlFor="teamName"
+                  className="text-gold font-semibold text-sm md:text-base"
+                >
                   Team Name
                 </Label>
                 <Input
@@ -134,11 +140,7 @@ function TeamLogin() {
                   Choose a unique name for your team (3-100 characters)
                 </p>
               </div>
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading}
-              >
+              <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -169,12 +171,12 @@ function TeamLogin() {
           </Link>
           <div className="text-papyrus/50 text-xs flex items-center justify-center gap-1">
             May the wisdom of the pharaohs guide you
-            <Vase className="h-3 w-3" />
+            <Sparkles className="h-3 w-3" />
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default TeamLogin
+export default TeamLogin;

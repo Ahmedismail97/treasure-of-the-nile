@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { leaderboardAPI } from "@/services/api";
 import { useLeaderboardWebSocket } from "@/hooks/useWebSocket";
 import { format } from "date-fns";
-import { Trophy, BarChart3, Landmark, CheckCircle2, PartyPopper, Vase } from "lucide-react";
+import { Trophy, BarChart3, Landmark, CheckCircle2, PartyPopper, Sparkles } from "lucide-react";
 import type { LeaderboardEntry } from "@/types";
 
 function LeaderboardPage() {
@@ -177,7 +177,7 @@ function LeaderboardPage() {
         <div className="mt-12 text-center text-papyrus/50 text-sm">
           <p className="flex items-center justify-center gap-2">
             May the swiftest seekers claim the treasure!
-            <Vase className="h-4 w-4" />
+            <Sparkles className="h-4 w-4" />
           </p>
         </div>
       </div>

@@ -11,7 +11,7 @@ interface RiddleChallengeProps {
   station: Station
   progress: Progress
   teamCode: string
-  onSuccess: (message: string, points?: number) => void
+  onSuccess: (message: string, points?: number, nextStation?: { id: number; stationNumber: number; title: string }) => void
   onError: (message: string) => void
 }
 
@@ -30,7 +30,7 @@ function RiddleChallenge({ station, progress, teamCode, onSuccess, onError }: Ri
       const response = await progressAPI.submitRiddle(station.id, teamCode, answer)
 
       if (response.data.correct) {
-        onSuccess(response.data.message, response.data.pointsEarned)
+        onSuccess(response.data.message, response.data.pointsEarned, response.data.nextStation)
       } else {
         onError(response.data.message)
         setAnswer('')

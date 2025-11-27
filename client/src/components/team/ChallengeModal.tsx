@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Loader2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { markStationCompletion } from "@/hooks/useWebSocket";
 import CheckIn from "./challenges/CheckIn";
 import PhotoUpload from "./challenges/PhotoUpload";
 import PhysicalTask from "./challenges/PhysicalTask";
@@ -49,8 +50,22 @@ function ChallengeModal({
     }
   };
 
-  const handleSuccess = (message: string, points?: number) => {
-    toast.success(message);
+  const handleSuccess = (message: string, points?: number, nextStation?: { id: number; stationNumber: number; title: string }) => {
+    // Mark completion to suppress redundant WebSocket toasts
+    markStationCompletion(teamCode, station.id);
+    
+    // Create comprehensive success message
+    let successMessage = message;
+    if (points !== undefined && points > 0) {
+      successMessage += ` +${points} points earned`;
+    }
+    if (nextStation) {
+      successMessage += ` 🎉 Next station unlocked: ${nextStation.title}!`;
+    }
+    
+    toast.success(successMessage, {
+      duration: nextStation ? 4000 : 3000,
+    });
     refreshProgress();
     setTimeout(onClose, 2000);
   };
@@ -66,7 +81,9 @@ function ChallengeModal({
       station: stationData.station,
       progress: stationData.progress,
       teamCode,
-      onSuccess: handleSuccess,
+      onSuccess: (message: string, points?: number, nextStation?: { id: number; stationNumber: number; title: string }) => {
+        handleSuccess(message, points, nextStation);
+      },
       onError: handleError,
     };
 

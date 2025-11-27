@@ -9,7 +9,7 @@ import type { Station } from '@/types'
 interface PhotoUploadProps {
   station: Station
   teamCode: string
-  onSuccess: (message: string, points?: number) => void
+  onSuccess: (message: string, points?: number, nextStation?: { id: number; stationNumber: number; title: string }) => void
   onError: (message: string) => void
 }
 
