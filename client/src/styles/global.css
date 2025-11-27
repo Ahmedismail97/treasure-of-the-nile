@@ -2,6 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    /* Egyptian theme mapped to shadcn variables */
+    --background: 197 47% 22%;        /* blue-deep: #1A3A52 */
+    --foreground: 60 8% 95%;          /* papyrus: #F5F5DC */
+
+    --card: 197 47% 22%;              /* blue-deep */
+    --card-foreground: 60 8% 95%;     /* papyrus */
+
+    --popover: 197 47% 22%;           /* blue-deep */
+    --popover-foreground: 60 8% 95%;  /* papyrus */
+
+    --primary: 45 75% 53%;            /* gold: #D4AF37 */
+    --primary-foreground: 197 47% 15%; /* blue-dark for contrast */
+
+    --secondary: 197 42% 45%;         /* blue-sky: #4A90A4 */
+    --secondary-foreground: 60 8% 95%; /* papyrus */
+
+    --muted: 197 47% 30%;             /* Muted blue */
+    --muted-foreground: 45 43% 76%;   /* gold-light */
+
+    --accent: 176 63% 52%;            /* turquoise: #30D5C8 */
+    --accent-foreground: 197 47% 15%; /* blue-dark */
+
+    --destructive: 0 84% 60%;         /* Red for errors */
+    --destructive-foreground: 60 8% 95%; /* papyrus */
+
+    --border: 45 75% 53%;             /* gold */
+    --input: 45 75% 53%;              /* gold */
+    --ring: 45 75% 53%;               /* gold */
+
+    --radius: 0.5rem;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -13,10 +48,39 @@ body {
   @apply bg-blue-dark;
   @apply text-papyrus;
   @apply min-h-screen;
+  @apply text-sm;
+  @apply leading-relaxed;
 }
 
+/* Mobile-first typography */
 h1, h2, h3, h4, h5, h6 {
   @apply font-cinzel;
+}
+
+h1 {
+  @apply text-2xl md:text-3xl lg:text-4xl;
+}
+
+h2 {
+  @apply text-xl md:text-2xl lg:text-3xl;
+}
+
+h3 {
+  @apply text-lg md:text-xl lg:text-2xl;
+}
+
+/* Mobile-first touch targets */
+button, a, input[type="button"], input[type="submit"] {
+  @apply min-h-[44px] min-w-[44px];
+}
+
+/* Mobile-first spacing utilities */
+.mobile-padding {
+  @apply px-3 md:px-4 lg:px-6;
+}
+
+.mobile-margin {
+  @apply my-3 md:my-4 lg:my-6;
 }
 
 /* Custom scrollbar */
@@ -80,10 +144,11 @@ h1, h2, h3, h4, h5, h6 {
   100% { transform: rotate(360deg); }
 }
 
-/* Button styles */
+/* Button styles - Mobile-first */
 .btn {
-  @apply px-6 py-3 rounded-lg font-semibold transition-all duration-300;
+  @apply px-4 py-3 md:px-6 md:py-3 rounded-lg font-semibold transition-all duration-300;
   @apply shadow-egyptian hover:shadow-glow;
+  @apply min-h-[44px] text-sm md:text-base;
 }
 
 .btn-gold {
@@ -96,9 +161,9 @@ h1, h2, h3, h4, h5, h6 {
   @apply hover:bg-gold hover:text-blue-dark;
 }
 
-/* Card styles */
+/* Card styles - Mobile-first */
 .card {
-  @apply bg-blue-deep rounded-lg p-6;
+  @apply bg-blue-deep rounded-lg p-4 md:p-6;
   @apply border-2 border-gold/30;
   @apply shadow-egyptian;
 }

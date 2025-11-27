@@ -2,10 +2,12 @@
   "name": "treasure-hunt-server",
   "version": "1.0.0",
   "description": "Backend API for Treasure of the Nile treasure hunt system",
-  "main": "src/server.js",
+  "main": "dist/server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "type-check": "tsc --noEmit",
     "migrate": "node src/config/migrate.js",
     "seed": "node scripts/seed-database.js",
     "reset": "node scripts/reset-progress.js",
@@ -31,6 +33,17 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2"
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/morgan": "^1.9.9",
+    "@types/multer": "^1.4.11",
+    "@types/node": "^20.10.6",
+    "@types/qrcode": "^1.5.5",
+    "nodemon": "^3.0.2",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
   }
 }

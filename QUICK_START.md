@@ -3,6 +3,7 @@
 ## 📊 Project Status: 85% Complete!
 
 ### ✅ What's 100% Complete and Ready
+
 - **Backend API** - All endpoints, controllers, routes working
 - **Database** - Models, migrations, seeding scripts
 - **Sequential Station Locking** - Core algorithm implemented
@@ -15,6 +16,7 @@
 - **Frontend Foundation** - API client, WebSocket, Context, Styling
 
 ### 🔨 What Needs Completion (15%)
+
 - **Frontend Components** - Main UI components (see FRONTEND_GUIDE.md)
 - Estimated time: 4-6 hours of focused work
 
@@ -23,6 +25,7 @@
 ## 🏃 Getting Started (Backend Only)
 
 ### 1. Install Dependencies
+
 ```bash
 # Install all dependencies
 npm run install:all
@@ -33,6 +36,7 @@ cd ../client && npm install
 ```
 
 ### 2. Setup Environment
+
 ```bash
 cd server
 cp .env.example .env
@@ -40,12 +44,14 @@ cp .env.example .env
 ```
 
 ### 3. Seed Database
+
 ```bash
 cd server
 npm run seed
 ```
 
 **This creates:**
+
 - Admin account: `admin` / `TreasureNile2024!`
 - 10 Egyptian-themed stations
 - 3 sample teams:
@@ -54,59 +60,67 @@ npm run seed
   - `SACRED-ANUBIS-999`
 
 ### 4. Start Backend Server
+
 ```bash
 cd server
 npm run dev
 ```
 
-Server runs at: **http://localhost:5000**
+Server runs at: **http://localhost:5001**
 
 ---
 
 ## 🧪 Test the Backend API
 
 ### Health Check
+
 ```bash
-curl http://localhost:5000/api/v1/health
+curl http://localhost:5001/api/v1/health
 ```
 
 ### Team Login
+
 ```bash
-curl -X POST http://localhost:5000/api/v1/team/login \
+curl -X POST http://localhost:5001/api/v1/team/login \
   -H "Content-Type: application/json" \
   -d '{"teamCode": "MIGHTY-PHARAOH-777"}'
 ```
 
 ### Team Self-Registration
+
 ```bash
-curl -X POST http://localhost:5000/api/v1/team/register \
+curl -X POST http://localhost:5001/api/v1/team/register \
   -H "Content-Type: application/json" \
   -d '{"teamName": "The Treasure Hunters"}'
 ```
 
 ### Complete Station 1 (Check-in)
+
 ```bash
-curl -X POST http://localhost:5000/api/v1/progress/station/1/checkin \
+curl -X POST http://localhost:5001/api/v1/progress/station/1/checkin \
   -H "Content-Type: application/json" \
   -d '{"teamCode": "MIGHTY-PHARAOH-777"}'
 ```
 
 ### Submit Riddle Answer (Station 2)
+
 ```bash
-curl -X POST http://localhost:5000/api/v1/progress/station/2/riddle \
+curl -X POST http://localhost:5001/api/v1/progress/station/2/riddle \
   -H "Content-Type: application/json" \
   -d '{"teamCode": "MIGHTY-PHARAOH-777", "answer": "echo"}'
 ```
 
 ### Get Leaderboard
+
 ```bash
-curl http://localhost:5000/api/v1/leaderboard
+curl http://localhost:5001/api/v1/leaderboard
 ```
 
 ### Test Sequential Locking
+
 ```bash
 # Try to access Station 3 before completing Stations 1 & 2
-curl "http://localhost:5000/api/v1/progress/station/3?teamCode=MIGHTY-PHARAOH-777"
+curl "http://localhost:5001/api/v1/progress/station/3?teamCode=MIGHTY-PHARAOH-777"
 
 # Should return: "Previous stations must be completed first"
 ```
@@ -116,6 +130,7 @@ curl "http://localhost:5000/api/v1/progress/station/3?teamCode=MIGHTY-PHARAOH-77
 ## 📱 Using With Frontend (When Complete)
 
 ### Start Both Services
+
 ```bash
 # Terminal 1 - Backend
 cd server
@@ -127,41 +142,47 @@ npm run dev
 ```
 
 - **Frontend**: http://localhost:5173
-- **Backend**: http://localhost:5000
+- **Backend**: http://localhost:5001
 
 ---
 
 ## 🐳 Docker Deployment
 
 ### Build and Start All Services
+
 ```bash
 docker-compose up -d --build
 ```
 
 ### View Logs
+
 ```bash
 docker-compose logs -f
 ```
 
 ### Stop All Services
+
 ```bash
 docker-compose down
 ```
 
 ### Access
+
 - **Frontend**: http://localhost:3000
-- **Backend**: http://localhost:5000
+- **Backend**: http://localhost:5001
 
 ---
 
 ## 💾 Database Access
 
 ### Using DB Browser for SQLite
+
 1. Download: https://sqlitebrowser.org/
 2. Open file: `server/database/treasure_hunt.db`
 3. Browse tables and data
 
 ### Using CLI
+
 ```bash
 sqlite3 server/database/treasure_hunt.db
 
@@ -186,6 +207,7 @@ ORDER BY totalPoints DESC, completedAt ASC;
 ## 🛠️ Utility Scripts
 
 ### Generate More Team Codes
+
 ```bash
 cd server
 npm run generate-teams          # Generate 10 teams
@@ -193,12 +215,14 @@ node scripts/generate-team-codes.js 25  # Generate 25 teams
 ```
 
 ### Reset All Progress (Testing)
+
 ```bash
 cd server
 npm run reset
 ```
 
 ### Re-seed Database
+
 ```bash
 cd server
 npm run seed
@@ -229,11 +253,13 @@ npm run seed
 ## 🎯 System Features
 
 ### Sequential Station Locking ✅
+
 - Teams MUST complete stations in order (1 → 2 → 3...)
 - Station 2 locked until Station 1 complete
 - Enforced at API level
 
 ### Challenge Types ✅
+
 1. **Riddle** - Answer questions, get hints (with penalties)
 2. **QR Code** - Scan at location
 3. **Photo** - Upload photos, admin verifies
@@ -241,18 +267,21 @@ npm run seed
 5. **Check-in** - Auto-complete on access
 
 ### Point System ✅
+
 - Base points per station
 - Riddle: -5 pts per wrong attempt
 - Hints: -10 pts each
 - Minimum 30% of base points guaranteed
 
 ### Real-time Updates ✅
+
 - Leaderboard updates instantly
 - Teams notified of progress
 - Admins alerted to submissions
 - WebSocket-based
 
 ### Admin Controls ✅
+
 - Verify photo/physical submissions
 - Manually complete stations
 - Custom point awards
@@ -300,11 +329,13 @@ ESAUM/
 ## 🔐 Default Credentials
 
 ### Admin
+
 - **Username**: `admin`
 - **Password**: `TreasureNile2024!`
 - **⚠️ CHANGE IN PRODUCTION!**
 
 ### Sample Teams
+
 - `MIGHTY-PHARAOH-777`
 - `GOLDEN-SPHINX-888`
 - `SACRED-ANUBIS-999`
@@ -347,6 +378,7 @@ ESAUM/
 ## 🆘 Troubleshooting
 
 ### Database Issues
+
 ```bash
 # Reset database
 rm server/database/treasure_hunt.db
@@ -354,12 +386,14 @@ cd server && npm run seed
 ```
 
 ### Port Already in Use
+
 ```bash
 # Change port in server/.env
 PORT=5001
 ```
 
 ### WebSocket Connection Issues
+
 - Check CORS settings in server
 - Verify CLIENT_URL in .env
 - Check firewall/proxy settings
@@ -378,7 +412,7 @@ PORT=5001
 
 ## 🏆 Success Criteria
 
-- ✅ Backend running on port 5000
+- ✅ Backend running on port 5001
 - ✅ Database seeded with stations & teams
 - ✅ Teams can login
 - ✅ Sequential locking enforced

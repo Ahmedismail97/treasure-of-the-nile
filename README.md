@@ -16,10 +16,12 @@ An Egyptian-themed treasure hunt management system for campus-wide scavenger hun
 ## Prerequisites
 
 ### Required
+
 - **Docker Desktop** - [Download here](https://www.docker.com/products/docker-desktop)
 - **Node.js 18+** (for local development without Docker)
 
 ### Database Access (choose one)
+
 - **DB Browser for SQLite** (Recommended) - [Download here](https://sqlitebrowser.org/)
 - **TablePlus** - [Download here](https://tableplus.com/)
 - **sqlite3 CLI** (included in macOS)
@@ -35,7 +37,7 @@ docker-compose up -d --build
 
 # 3. Access the application
 # Frontend: http://localhost:3000
-# Backend API: http://localhost:5000
+# Backend API: http://localhost:5001
 
 # 4. View logs
 docker-compose logs -f
@@ -64,7 +66,7 @@ cd ..
 npm run dev
 
 # Frontend: http://localhost:5173
-# Backend: http://localhost:5000
+# Backend: http://localhost:5001
 ```
 
 ## Database Access
@@ -72,12 +74,14 @@ npm run dev
 The SQLite database is located at `server/database/treasure_hunt.db`
 
 ### Using DB Browser for SQLite
+
 1. Open DB Browser for SQLite
 2. Click "Open Database"
 3. Navigate to `ESAUM/server/database/treasure_hunt.db`
 4. View/edit tables: Team, Station, Progress, Admin, EventSettings
 
 ### Using CLI
+
 ```bash
 sqlite3 server/database/treasure_hunt.db
 
@@ -101,6 +105,7 @@ ESAUM/
 ## Admin Access
 
 Default admin credentials (change after first login):
+
 - **Username**: `admin`
 - **Password**: `TreasureNile2024!`
 
@@ -109,6 +114,7 @@ Admin panel: `http://localhost:3000/admin`
 ## Team Access
 
 Teams can:
+
 1. **Login** with pre-generated team code
 2. **Self-register** with a team name (system generates code)
 
@@ -117,6 +123,7 @@ Team dashboard: `http://localhost:3000/`
 ## Event Preparation Checklist
 
 ### 1 Week Before
+
 - [ ] Deploy system to production server
 - [ ] Test all features end-to-end
 - [ ] Pre-generate team codes for registered teams
@@ -124,6 +131,7 @@ Team dashboard: `http://localhost:3000/`
 - [ ] Test QR code scanning on multiple devices
 
 ### 3 Days Before
+
 - [ ] Print QR codes for all 10 stations
 - [ ] Place QR codes at physical campus locations
 - [ ] Test QR codes work at actual locations
@@ -131,6 +139,7 @@ Team dashboard: `http://localhost:3000/`
 - [ ] Backup database
 
 ### Event Day
+
 - [ ] Enable event in EventSettings (via admin panel or DB Browser)
 - [ ] Monitor system performance
 - [ ] Verify challenges as they're submitted
@@ -140,9 +149,10 @@ Team dashboard: `http://localhost:3000/`
 
 Full API documentation available at: [docs/API.md](docs/API.md)
 
-Base URL: `http://localhost:5000/api/v1`
+Base URL: `http://localhost:5001/api/v1`
 
 ### Key Endpoints
+
 - `POST /team/login` - Team authentication
 - `POST /team/register` - Self-registration
 - `POST /team/station/:id/submit` - Submit challenge
@@ -171,6 +181,7 @@ npm run dev:client
 ## Technology Stack
 
 ### Frontend
+
 - React 18 + Vite
 - Tailwind CSS
 - Socket.io-client
@@ -178,6 +189,7 @@ npm run dev:client
 - React Router v6
 
 ### Backend
+
 - Node.js + Express
 - Sequelize ORM
 - SQLite3
@@ -187,6 +199,7 @@ npm run dev:client
 ## Troubleshooting
 
 ### Docker Issues
+
 ```bash
 # Rebuild containers
 docker-compose up -d --build
@@ -200,13 +213,16 @@ docker-compose restart server
 ```
 
 ### Database Locked
+
 If you get "database is locked" error:
+
 1. Close DB Browser for SQLite
 2. Stop Docker containers
 3. Delete lock files: `rm server/database/*.db-*`
 4. Restart containers
 
 ### QR Scanner Not Working
+
 - Ensure HTTPS or localhost (camera permissions)
 - Check browser camera permissions
 - Test on multiple devices/browsers

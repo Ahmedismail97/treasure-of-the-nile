@@ -7,6 +7,7 @@
 ## 🚀 Quick Start (5 Minutes)
 
 ### Step 1: Install Everything
+
 ```bash
 cd /Users/ahmeddawod/Desktop/ESAUM
 npm run install:all
@@ -15,6 +16,7 @@ npm run install:all
 This installs all dependencies for both backend and frontend.
 
 ### Step 2: Setup & Seed Database
+
 ```bash
 cd server
 cp .env.example .env
@@ -22,6 +24,7 @@ npm run seed
 ```
 
 This creates:
+
 - ✅ Admin account (admin / TreasureNile2024!)
 - ✅ 10 Egyptian-themed stations
 - ✅ 3 sample teams with codes
@@ -29,12 +32,14 @@ This creates:
 ### Step 3: Start Both Services
 
 **Terminal 1 - Backend:**
+
 ```bash
 cd server
 npm run dev
 ```
 
 **Terminal 2 - Frontend:**
+
 ```bash
 cd client
 npm run dev
@@ -47,6 +52,7 @@ npm run dev
 ## 🧪 Test the System (2 Minutes)
 
 ### Test 1: Team Registration
+
 1. Go to http://localhost:5173
 2. Click "Register"
 3. Enter team name: "Test Hunters"
@@ -54,12 +60,14 @@ npm run dev
 5. You should see the dashboard ✅
 
 ### Test 2: Complete a Station
+
 1. Click on "Station 1: The Gateway of Ra"
 2. Click "Check In"
 3. You should get +50 points
 4. Station 2 should unlock ✅
 
 ### Test 3: Solve a Riddle
+
 1. Click on "Station 2: The Sphinx's Riddle"
 2. Try wrong answer (to see penalty)
 3. Click "Hint" button (costs 10 points)
@@ -67,6 +75,7 @@ npm run dev
 5. Station 3 should unlock ✅
 
 ### Test 4: View Leaderboard
+
 1. Click "View Leaderboard"
 2. See your team ranked
 3. Open in another browser tab
@@ -78,18 +87,20 @@ npm run dev
 ## 📱 Test QR Scanner (Requires Phone)
 
 ### Generate QR Code
+
 ```bash
 # Get admin token
-curl -X POST http://localhost:5000/api/v1/admin/login \
+curl -X POST http://localhost:5001/api/v1/admin/login \
   -H "Content-Type: application/json" \
   -d '{"username": "admin", "password": "TreasureNile2024!"}' | jq -r '.token'
 
 # Generate QR for Station 3 (replace TOKEN)
-curl -X POST http://localhost:5000/api/v1/admin/qr/generate/3 \
+curl -X POST http://localhost:5001/api/v1/admin/qr/generate/3 \
   -H "Authorization: Bearer YOUR_TOKEN_HERE"
 ```
 
 ### Test Scanning
+
 1. Copy the `qrImageUrl` from response
 2. Open on phone browser
 3. In treasure hunt app, go to Station 3
@@ -101,11 +112,13 @@ curl -X POST http://localhost:5000/api/v1/admin/qr/generate/3 \
 ## 💾 Access Database
 
 ### Using DB Browser for SQLite
+
 1. Download: https://sqlitebrowser.org/
 2. Open: `server/database/treasure_hunt.db`
 3. Browse all tables
 
 ### Quick Queries
+
 ```sql
 -- View all teams
 SELECT * FROM teams ORDER BY totalPoints DESC;
@@ -133,6 +146,7 @@ WHERE teamId = 1 AND stationId = 5;
 ## 🔧 Common Operations
 
 ### Generate More Team Codes
+
 ```bash
 cd server
 npm run generate-teams        # Generate 10 teams
@@ -140,12 +154,14 @@ node scripts/generate-team-codes.js 25  # Generate 25 teams
 ```
 
 ### Reset All Progress (Testing)
+
 ```bash
 cd server
 npm run reset
 ```
 
 ### Rebuild Everything
+
 ```bash
 # Backend
 cd server
@@ -163,26 +179,31 @@ npm install
 ## 🐳 Deploy with Docker
 
 ### Build and Start
+
 ```bash
 docker-compose up -d --build
 ```
 
 ### Seed Database in Docker
+
 ```bash
 docker exec -it treasure-hunt-server npm run seed
 ```
 
 ### Access
+
 - Frontend: http://localhost:3000
-- Backend: http://localhost:5000
+- Backend: http://localhost:5001
 
 ### View Logs
+
 ```bash
 docker-compose logs -f server
 docker-compose logs -f client
 ```
 
 ### Stop Everything
+
 ```bash
 docker-compose down
 ```
@@ -191,7 +212,8 @@ docker-compose down
 
 ## 📊 What's Included
 
-### Backend (Port 5000)
+### Backend (Port 5001)
+
 - ✅ REST API with 20+ endpoints
 - ✅ WebSocket server for real-time updates
 - ✅ SQLite database with full schema
@@ -201,6 +223,7 @@ docker-compose down
 - ✅ All 5 challenge types
 
 ### Frontend (Port 5173)
+
 - ✅ Team registration & login
 - ✅ Egyptian-themed UI
 - ✅ Station progress dashboard
@@ -214,6 +237,7 @@ docker-compose down
 - ✅ Mobile responsive
 
 ### Database
+
 - ✅ 10 Egyptian-themed stations
 - ✅ Sample teams for testing
 - ✅ Admin account configured
@@ -224,6 +248,7 @@ docker-compose down
 ## 🎮 Sample Login Codes
 
 Use these to test quickly:
+
 - `MIGHTY-PHARAOH-777`
 - `GOLDEN-SPHINX-888`
 - `SACRED-ANUBIS-999`
@@ -252,6 +277,7 @@ Or register a new team!
 ## ✅ Pre-Event Checklist
 
 ### Technical Setup
+
 - [ ] System running locally and tested
 - [ ] All challenge types working
 - [ ] QR codes generated for stations 3 & 7
@@ -259,6 +285,7 @@ Or register a new team!
 - [ ] Database backed up
 
 ### Content Setup
+
 - [ ] Station locations confirmed on campus
 - [ ] QR codes placed at locations
 - [ ] Riddle answers documented
@@ -266,12 +293,14 @@ Or register a new team!
 - [ ] Physical task instructions prepared
 
 ### Team Setup
+
 - [ ] Team codes generated (or self-registration enabled)
 - [ ] Team codes distributed (if pre-registration)
 - [ ] Admin accounts created
 - [ ] Admin briefed on verification process
 
 ### Deployment
+
 - [ ] Deployed to production server (or localhost)
 - [ ] Event settings configured
 - [ ] Database accessible to admins
@@ -282,9 +311,10 @@ Or register a new team!
 ## 🆘 Need Help?
 
 ### Backend Not Starting?
+
 ```bash
 # Check if port is in use
-lsof -i :5000
+lsof -i :5001
 
 # Kill process using port
 kill -9 <PID>
@@ -294,6 +324,7 @@ cd server && npm run dev
 ```
 
 ### Frontend Not Starting?
+
 ```bash
 # Check if port is in use
 lsof -i :5173
@@ -305,6 +336,7 @@ npm run dev
 ```
 
 ### Database Issues?
+
 ```bash
 # Delete and recreate
 rm server/database/treasure_hunt.db
@@ -312,6 +344,7 @@ cd server && npm run seed
 ```
 
 ### WebSocket Not Connecting?
+
 - Check `server/.env` has correct `CLIENT_URL`
 - Check browser console for errors
 - Try refreshing the page
@@ -347,6 +380,7 @@ ESAUM/
 **Everything is ready to go!** Just run the 3 commands at the top of this file and you'll have a fully functional treasure hunt system.
 
 **Questions?** Check the other documentation files:
+
 - `README.md` - Overview
 - `QUICK_START.md` - Getting started
 - `BACKEND_COMPLETE.md` - API documentation
@@ -357,4 +391,4 @@ ESAUM/
 
 ---
 
-*Built for University of Malaya's Treasure of the Nile Volume II event*
+_Built for University of Malaya's Treasure of the Nile Volume II event_
