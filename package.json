@@ -1,0 +1,29 @@
+{
+  "name": "treasure-of-the-nile",
+  "version": "1.0.0",
+  "description": "Egyptian-themed treasure hunt management system for campus-wide scavenger hunt",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install && cd ..",
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "build": "npm run build --prefix client",
+    "start": "npm start --prefix server",
+    "seed": "node server/scripts/seed-database.js",
+    "reset": "node server/scripts/reset-progress.js",
+    "generate-teams": "node server/scripts/generate-team-codes.js"
+  },
+  "keywords": [
+    "treasure-hunt",
+    "scavenger-hunt",
+    "egyptian",
+    "campus-event",
+    "qr-code"
+  ],
+  "author": "University of Malaya",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

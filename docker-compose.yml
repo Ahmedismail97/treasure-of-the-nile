@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: treasure-hunt-server
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server/database:/app/database
+      - ./server/uploads:/app/uploads
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - DB_PATH=/app/database/treasure_hunt.db
+      - JWT_SECRET=${JWT_SECRET:-your-secret-key-change-in-production}
+      - CLIENT_URL=http://localhost:3000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - treasure-hunt-network
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: treasure-hunt-client
+    ports:
+      - "3000:80"
+    depends_on:
+      - server
+    restart: unless-stopped
+    networks:
+      - treasure-hunt-network
+
+networks:
+  treasure-hunt-network:
+    driver: bridge
+
+volumes:
+  database:
+  uploads:

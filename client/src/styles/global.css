@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  @apply font-lato;
+  @apply bg-blue-dark;
+  @apply text-papyrus;
+  @apply min-h-screen;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-cinzel;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-blue-dark;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gold rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gold-dark;
+}
+
+/* Egyptian decorative border */
+.egyptian-border {
+  position: relative;
+  border: 2px solid #D4AF37;
+}
+
+.egyptian-border::before,
+.egyptian-border::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #D4AF37;
+}
+
+.egyptian-border::before {
+  top: -2px;
+  left: -2px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.egyptian-border::after {
+  bottom: -2px;
+  right: -2px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Loading animation */
+.loader {
+  border: 3px solid rgba(212, 175, 55, 0.2);
+  border-top: 3px solid #D4AF37;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Button styles */
+.btn {
+  @apply px-6 py-3 rounded-lg font-semibold transition-all duration-300;
+  @apply shadow-egyptian hover:shadow-glow;
+}
+
+.btn-gold {
+  @apply bg-gradient-gold text-blue-dark;
+  @apply hover:scale-105 active:scale-95;
+}
+
+.btn-blue {
+  @apply bg-gradient-blue text-gold border-2 border-gold;
+  @apply hover:bg-gold hover:text-blue-dark;
+}
+
+/* Card styles */
+.card {
+  @apply bg-blue-deep rounded-lg p-6;
+  @apply border-2 border-gold/30;
+  @apply shadow-egyptian;
+}
+
+.card-locked {
+  @apply bg-blue-deep/50 border-gray-600;
+  @apply opacity-60 cursor-not-allowed;
+}
+
+.card-unlocked {
+  @apply border-gold animate-pulse-glow;
+}
+
+.card-completed {
+  @apply border-green-500 bg-green-900/20;
+}
+
+/* Input styles */
+.input {
+  @apply w-full px-4 py-3 rounded-lg;
+  @apply bg-blue-deep border-2 border-gold/50;
+  @apply text-papyrus placeholder-gold/50;
+  @apply focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/30;
+}
+
+/* Hieroglyphic decorations */
+.hieroglyph {
+  font-family: 'Segoe UI Symbol', 'Noto Sans Symbols';
+}
+
+/* Ankh symbol */
+.ankh::before {
+  content: '☥';
+  @apply text-gold text-2xl;
+}
+
+/* Eye of Horus */
+.eye-of-horus::before {
+  content: '𓂀';
+  @apply text-gold text-2xl;
+}
