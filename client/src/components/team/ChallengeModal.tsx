@@ -1,67 +1,66 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { X, Loader2 } from 'lucide-react'
-import { progressAPI } from '@/services/api'
-import { useTeam } from '@/context/TeamContext'
-import toast from 'react-hot-toast'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
-import RiddleChallenge from './challenges/RiddleChallenge'
-import QRScanner from './challenges/QRScanner'
-import PhotoUpload from './challenges/PhotoUpload'
-import PhysicalTask from './challenges/PhysicalTask'
-import CheckIn from './challenges/CheckIn'
-import type { Station, Progress } from '@/types'
+import { useTeam } from "@/context/TeamContext";
+import { progressAPI } from "@/services/api";
+import type { Progress, Station } from "@/types";
+import { AnimatePresence, motion } from "framer-motion";
+import { Loader2, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import CheckIn from "./challenges/CheckIn";
+import PhotoUpload from "./challenges/PhotoUpload";
+import PhysicalTask from "./challenges/PhysicalTask";
+import QRScanner from "./challenges/QRScanner";
+import RiddleChallenge from "./challenges/RiddleChallenge";
 
 interface ChallengeModalProps {
-  station: Station
-  progress: Progress
-  teamCode: string
-  onClose: () => void
+  station: Station;
+  progress: Progress;
+  teamCode: string;
+  onClose: () => void;
 }
 
 interface StationData {
-  station: Station
-  progress: Progress
+  station: Station;
+  progress: Progress;
 }
 
-function ChallengeModal({ station, progress, teamCode, onClose }: ChallengeModalProps) {
-  const [stationData, setStationData] = useState<StationData | null>(null)
-  const [loading, setLoading] = useState(true)
-  const { refreshProgress } = useTeam()
+function ChallengeModal({
+  station,
+  progress,
+  teamCode,
+  onClose,
+}: ChallengeModalProps) {
+  const [stationData, setStationData] = useState<StationData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const { refreshProgress } = useTeam();
 
   useEffect(() => {
-    loadStationData()
-  }, [station.id])
+    loadStationData();
+  }, [station.id]);
 
   const loadStationData = async () => {
     try {
-      const response = await progressAPI.getStation(station.id, teamCode)
-      setStationData(response.data)
+      const response = await progressAPI.getStation(station.id, teamCode);
+      setStationData(response.data);
     } catch (error: any) {
-      toast.error(error.message || 'Failed to load station data')
-      onClose()
+      toast.error(error.message || "Failed to load station data");
+      onClose();
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleSuccess = (message: string, points?: number) => {
-    toast.success(message)
-    refreshProgress()
-    setTimeout(onClose, 2000)
-  }
+    toast.success(message);
+    refreshProgress();
+    setTimeout(onClose, 2000);
+  };
 
   const handleError = (message: string) => {
-    toast.error(message)
-  }
+    toast.error(message);
+  };
 
   const renderChallenge = () => {
-    if (!stationData) return null
+    if (!stationData) return null;
 
     const props = {
       station: stationData.station,
@@ -69,23 +68,27 @@ function ChallengeModal({ station, progress, teamCode, onClose }: ChallengeModal
       teamCode,
       onSuccess: handleSuccess,
       onError: handleError,
-    }
+    };
 
     switch (station.challengeType) {
-      case 'riddle':
-        return <RiddleChallenge {...props} />
-      case 'qr':
-        return <QRScanner {...props} />
-      case 'photo':
-        return <PhotoUpload {...props} />
-      case 'physical':
-        return <PhysicalTask {...props} />
-      case 'checkin':
-        return <CheckIn {...props} />
+      case "riddle":
+        return <RiddleChallenge {...props} />;
+      case "qr":
+        return <QRScanner {...props} />;
+      case "photo":
+        return <PhotoUpload {...props} />;
+      case "physical":
+        return <PhysicalTask {...props} />;
+      case "checkin":
+        return <CheckIn {...props} />;
       default:
-        return <div className="text-center text-papyrus/70">Unknown challenge type</div>
+        return (
+          <div className="text-center text-papyrus/70">
+            Unknown challenge type
+          </div>
+        );
     }
-  }
+  };
 
   return (
     <AnimatePresence>
@@ -133,7 +136,7 @@ function ChallengeModal({ station, progress, teamCode, onClose }: ChallengeModal
         </motion.div>
       </div>
     </AnimatePresence>
-  )
+  );
 }
 
-export default ChallengeModal
+export default ChallengeModal;
