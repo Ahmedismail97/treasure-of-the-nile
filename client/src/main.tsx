@@ -4,14 +4,16 @@ import { BrowserRouter } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import App from './App'
 import { TeamProvider } from '@/context/TeamContext'
+import { AdminProvider } from '@/context/AdminContext'
 import '@/styles/global.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <TeamProvider>
-        <App />
-        <Toaster
+      <AdminProvider>
+        <TeamProvider>
+          <App />
+          <Toaster
           position="top-center"
           containerStyle={{
             top: '1rem',
@@ -36,7 +38,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             },
           }}
         />
-      </TeamProvider>
+        </TeamProvider>
+      </AdminProvider>
     </BrowserRouter>
   </React.StrictMode>,
 )

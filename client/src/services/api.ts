@@ -138,6 +138,7 @@ export const adminAPI = {
   getEventSettings: () => api.get("/admin/event-settings"),
   updateEventSettings: (settings: any) =>
     api.put("/admin/event-settings", settings),
+  startEvent: () => api.put("/admin/event-settings", { isEventActive: true, eventStart: new Date().toISOString() }),
   endEvent: () => api.post("/admin/event/end"),
   getStatistics: () => api.get("/admin/statistics"),
 };
