@@ -44,27 +44,27 @@ function LeaderboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-dark via-blue-deep to-blue-dark py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-b from-blue-dark via-blue-deep to-blue-dark py-4 md:py-6 lg:py-8 px-3 md:px-4">
       <div className="container mx-auto max-w-4xl">
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-4 md:mb-6 lg:mb-8">
           <motion.div
-            className="text-6xl mb-4 animate-float"
+            className="text-4xl md:text-5xl lg:text-6xl mb-3 md:mb-4 animate-float"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", duration: 0.6 }}
           >
             🏆
           </motion.div>
-          <h1 className="text-4xl md:text-5xl font-cinzel text-gold mb-2">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-cinzel text-gold mb-2">
             Leaderboard
           </h1>
-          <p className="text-papyrus/70">The Greatest Treasure Hunters</p>
+          <p className="text-papyrus/70 text-sm md:text-base">The Greatest Treasure Hunters</p>
         </div>
 
         {/* Back button */}
-        <div className="mb-6 text-center">
-          <Link to="/" className="btn btn-blue inline-flex items-center gap-2">
+        <div className="mb-4 md:mb-6 text-center">
+          <Link to="/" className="btn btn-blue inline-flex items-center gap-2 min-h-[44px] w-full sm:w-auto justify-center">
             ← Back to Dashboard
           </Link>
         </div>
@@ -81,7 +81,7 @@ function LeaderboardPage() {
             <p className="text-papyrus/70">No teams have started yet</p>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4">
             {leaderboard.map((team, index) => (
               <motion.div
                 key={team.teamId || team.teamCode || index}
@@ -90,24 +90,24 @@ function LeaderboardPage() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.05 }}
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 md:gap-3 lg:gap-4">
                   {/* Rank */}
-                  <div className="text-3xl md:text-4xl min-w-[60px] text-center">
+                  <div className="text-2xl md:text-3xl lg:text-4xl min-w-[40px] md:min-w-[50px] lg:min-w-[60px] text-center flex-shrink-0">
                     {getRankIcon(team.rank)}
                   </div>
 
                   {/* Team info */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-gold text-lg md:text-xl truncate">
+                    <h3 className="font-bold text-gold text-sm md:text-base lg:text-lg xl:text-xl truncate">
                       {team.teamName}
                     </h3>
-                    <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm text-papyrus/70 mt-1">
+                    <div className="flex flex-wrap items-center gap-1 md:gap-2 text-xs text-papyrus/70 mt-1">
                       <span>🏛️ Station {team.currentStation}</span>
-                      <span>•</span>
+                      <span className="hidden sm:inline">•</span>
                       <span>✅ {team.stationsCompleted || 0}/10</span>
                       {team.isFinished && (
                         <>
-                          <span>•</span>
+                          <span className="hidden sm:inline">•</span>
                           <span className="text-green-400">🎉 Completed!</span>
                         </>
                       )}
@@ -121,8 +121,8 @@ function LeaderboardPage() {
                   </div>
 
                   {/* Points */}
-                  <div className="text-right">
-                    <div className="text-2xl md:text-3xl font-bold text-gold">
+                  <div className="text-right flex-shrink-0">
+                    <div className="text-xl md:text-2xl lg:text-3xl font-bold text-gold">
                       {team.totalPoints}
                     </div>
                     <div className="text-xs text-papyrus/50">points</div>
@@ -130,12 +130,12 @@ function LeaderboardPage() {
                 </div>
 
                 {/* Progress bar */}
-                <div className="mt-3 pt-3 border-t border-gold/20">
-                  <div className="flex items-center gap-1">
+                <div className="mt-2 md:mt-3 pt-2 md:pt-3 border-t border-gold/20">
+                  <div className="flex items-center gap-0.5 md:gap-1">
                     {[...Array(10)].map((_, i) => (
                       <div
                         key={i}
-                        className={`flex-1 h-2 rounded-full transition-all ${
+                        className={`flex-1 h-1.5 md:h-2 rounded-full transition-all ${
                           i < (team.stationsCompleted || 0)
                             ? team.isFinished
                               ? "bg-green-500"

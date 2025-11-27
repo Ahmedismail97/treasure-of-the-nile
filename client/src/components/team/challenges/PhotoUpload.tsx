@@ -59,19 +59,19 @@ function PhotoUpload({ station, teamCode, onSuccess, onError }: PhotoUploadProps
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Prompt */}
       <Card className="card-unlocked egyptian-border">
-        <div className="text-gold text-sm mb-2 font-semibold flex items-center gap-1">
-          <Camera className="h-4 w-4" />
+        <div className="text-gold text-xs md:text-sm mb-2 font-semibold flex items-center gap-1">
+          <Camera className="h-3 w-3 md:h-4 md:w-4" />
           <span>Challenge:</span>
         </div>
-        <p className="text-papyrus text-lg">{station.challengeData?.prompt}</p>
+        <p className="text-papyrus text-sm md:text-base lg:text-lg">{station.challengeData?.prompt}</p>
       </Card>
 
       {/* File input */}
       <div>
-        <Label htmlFor="photo-input" className="text-gold font-semibold">
+        <Label htmlFor="photo-input" className="text-gold font-semibold text-sm md:text-base">
           Upload Your Photo
         </Label>
         <input
@@ -85,10 +85,10 @@ function PhotoUpload({ station, teamCode, onSuccess, onError }: PhotoUploadProps
         />
         <label
           htmlFor="photo-input"
-          className="block w-full mt-2 p-4 border-2 border-dashed border-gold/50 rounded-lg text-center cursor-pointer hover:border-gold hover:bg-gold/5 transition-all"
+          className="block w-full mt-2 p-3 md:p-4 border-2 border-dashed border-gold/50 rounded-lg text-center cursor-pointer hover:border-gold hover:bg-gold/5 transition-all min-h-[120px] md:min-h-[140px] flex flex-col items-center justify-center"
         >
-          <Camera className="h-12 w-12 text-gold mx-auto mb-2" />
-          <p className="text-papyrus">
+          <Camera className="h-10 w-10 md:h-12 md:w-12 text-gold mx-auto mb-2" />
+          <p className="text-papyrus text-sm md:text-base">
             {selectedFile ? selectedFile.name : 'Tap to select or take a photo'}
           </p>
           <p className="text-papyrus/50 text-xs mt-2">
@@ -126,7 +126,7 @@ function PhotoUpload({ station, teamCode, onSuccess, onError }: PhotoUploadProps
       {/* Upload button */}
       <Button
         onClick={handleUpload}
-        className="w-full"
+        className="w-full min-h-[44px] text-sm md:text-base"
         disabled={!selectedFile || uploading}
       >
         {uploading ? (

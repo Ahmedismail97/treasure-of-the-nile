@@ -60,11 +60,11 @@ function RiddleChallenge({ station, progress, teamCode, onSuccess, onError }: Ri
   const availableHints = totalHints - usedHints
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Question */}
       <Card className="card-unlocked egyptian-border">
-        <div className="text-gold text-sm mb-2 font-semibold">The Sphinx asks:</div>
-        <p className="text-papyrus text-lg">{station.challengeData?.question}</p>
+        <div className="text-gold text-xs md:text-sm mb-2 font-semibold">The Sphinx asks:</div>
+        <p className="text-papyrus text-sm md:text-base lg:text-lg">{station.challengeData?.question}</p>
       </Card>
 
       {/* Attempts counter */}
@@ -90,15 +90,15 @@ function RiddleChallenge({ station, progress, teamCode, onSuccess, onError }: Ri
       )}
 
       {/* Answer form */}
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
         <div>
-          <Label htmlFor="answer" className="text-gold font-semibold">
+          <Label htmlFor="answer" className="text-gold font-semibold text-sm md:text-base">
             Your Answer
           </Label>
           <Input
             id="answer"
             type="text"
-            className="input mt-2"
+            className="input mt-2 text-sm md:text-base min-h-[44px]"
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
             placeholder="Enter your answer..."
@@ -107,10 +107,10 @@ function RiddleChallenge({ station, progress, teamCode, onSuccess, onError }: Ri
           />
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
           <Button
             type="submit"
-            className="flex-1"
+            className="flex-1 min-h-[44px] text-sm md:text-base"
             disabled={submitting || !answer.trim()}
           >
             {submitting ? (
@@ -132,13 +132,15 @@ function RiddleChallenge({ station, progress, teamCode, onSuccess, onError }: Ri
               onClick={requestHint}
               variant="outline"
               disabled={requestingHint}
+              className="min-h-[44px] text-sm md:text-base"
             >
               {requestingHint ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
                 <>
                   <Lightbulb className="h-4 w-4" />
-                  <span>Hint ({availableHints})</span>
+                  <span className="hidden sm:inline">Hint ({availableHints})</span>
+                  <span className="sm:hidden">Hint</span>
                 </>
               )}
             </Button>

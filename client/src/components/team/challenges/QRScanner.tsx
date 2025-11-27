@@ -84,14 +84,14 @@ function QRScanner({ station, teamCode, onSuccess, onError }: QRScannerProps) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Instructions */}
       <Card className="card-unlocked egyptian-border">
-        <div className="text-gold text-sm mb-2 font-semibold flex items-center gap-1">
-          <Camera className="h-4 w-4" />
+        <div className="text-gold text-xs md:text-sm mb-2 font-semibold flex items-center gap-1">
+          <Camera className="h-3 w-3 md:h-4 md:w-4" />
           <span>Instructions:</span>
         </div>
-        <p className="text-papyrus">
+        <p className="text-papyrus text-sm md:text-base">
           {station.challengeData?.message || 'Scan the QR code at this station to prove you are here.'}
         </p>
       </Card>
@@ -99,15 +99,15 @@ function QRScanner({ station, teamCode, onSuccess, onError }: QRScannerProps) {
       {/* Scanner area */}
       <div className="bg-blue-dark rounded-lg overflow-hidden border-2 border-gold/30">
         {!scanning && (
-          <div className="text-center py-12">
-            <div className="text-6xl mb-4">
-              {hasCamera ? <Camera className="h-16 w-16 text-gold mx-auto" /> : <CameraOff className="h-16 w-16 text-gray-400 mx-auto" />}
+          <div className="text-center py-8 md:py-12">
+            <div className="text-4xl md:text-6xl mb-3 md:mb-4">
+              {hasCamera ? <Camera className="h-12 w-12 md:h-16 md:w-16 text-gold mx-auto" /> : <CameraOff className="h-12 w-12 md:h-16 md:w-16 text-gray-400 mx-auto" />}
             </div>
-            <p className="text-papyrus/70 mb-6">
+            <p className="text-papyrus/70 mb-4 md:mb-6 text-sm md:text-base">
               {hasCamera ? 'Ready to scan QR code' : 'Camera not available'}
             </p>
             {hasCamera && (
-              <Button onClick={startScanner}>
+              <Button onClick={startScanner} className="min-h-[44px] text-sm md:text-base">
                 <Camera className="h-4 w-4" />
                 <span>Start Scanner</span>
               </Button>
@@ -118,8 +118,8 @@ function QRScanner({ station, teamCode, onSuccess, onError }: QRScannerProps) {
         <div id="qr-reader" ref={scannerRef}></div>
 
         {scanning && (
-          <div className="p-4 text-center">
-            <Button onClick={stopScanner} variant="outline">
+          <div className="p-3 md:p-4 text-center">
+            <Button onClick={stopScanner} variant="outline" className="min-h-[44px] text-sm md:text-base">
               <Square className="h-4 w-4" />
               <span>Stop Scanner</span>
             </Button>

@@ -92,42 +92,42 @@ function ChallengeModal({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-2 md:p-4 bg-black/80 backdrop-blur-sm">
         <motion.div
-          className="bg-blue-deep rounded-lg border-2 border-gold shadow-glow-intense max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+          className="bg-blue-deep rounded-lg border-2 border-gold shadow-glow-intense max-w-2xl w-full max-h-[95vh] md:max-h-[90vh] overflow-y-auto"
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
           transition={{ duration: 0.3 }}
         >
           {/* Header */}
-          <div className="sticky top-0 bg-blue-deep border-b-2 border-gold/30 p-6 z-10">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <div className="text-gold/70 text-sm mb-1">
+          <div className="sticky top-0 bg-blue-deep border-b-2 border-gold/30 p-4 md:p-6 z-10">
+            <div className="flex items-start justify-between gap-2">
+              <div className="flex-1 min-w-0">
+                <div className="text-gold/70 text-xs md:text-sm mb-1">
                   Station {station.stationNumber}
                 </div>
-                <h2 className="text-2xl md:text-3xl font-cinzel text-gold mb-2">
+                <h2 className="text-lg md:text-2xl lg:text-3xl font-cinzel text-gold mb-1 md:mb-2 break-words">
                   {station.title}
                 </h2>
-                <p className="text-papyrus/70 text-sm">{station.description}</p>
+                <p className="text-papyrus/70 text-xs md:text-sm">{station.description}</p>
               </div>
               <button
                 onClick={onClose}
-                className="text-papyrus/50 hover:text-papyrus transition-colors ml-4 p-1 rounded hover:bg-gold/10"
+                className="text-papyrus/50 hover:text-papyrus transition-colors ml-2 md:ml-4 p-2 rounded hover:bg-gold/10 min-h-[44px] min-w-[44px] flex items-center justify-center flex-shrink-0"
                 title="Close"
               >
-                <X className="h-6 w-6" />
+                <X className="h-5 w-5 md:h-6 md:w-6" />
               </button>
             </div>
           </div>
 
           {/* Content */}
-          <div className="p-6">
+          <div className="p-4 md:p-6">
             {loading ? (
-              <div className="text-center py-12">
-                <Loader2 className="h-12 w-12 text-gold animate-spin mx-auto mb-4" />
-                <p className="text-papyrus/70">Loading challenge...</p>
+              <div className="text-center py-8 md:py-12">
+                <Loader2 className="h-10 w-10 md:h-12 md:w-12 text-gold animate-spin mx-auto mb-3 md:mb-4" />
+                <p className="text-papyrus/70 text-sm md:text-base">Loading challenge...</p>
               </div>
             ) : (
               renderChallenge()

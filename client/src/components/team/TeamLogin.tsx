@@ -38,22 +38,22 @@ function TeamLogin() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-dark via-blue-deep to-blue-dark px-4 py-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-dark via-blue-deep to-blue-dark px-3 py-6 md:px-4 md:py-8">
       <div className="max-w-md w-full">
         {/* Logo/Title */}
-        <div className="text-center mb-8 animate-float">
-          <div className="text-6xl mb-4">🏛️</div>
-          <h1 className="text-4xl md:text-5xl font-cinzel text-gold mb-2">
+        <div className="text-center mb-6 md:mb-8 animate-float">
+          <div className="text-4xl md:text-6xl mb-3 md:mb-4">🏛️</div>
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-cinzel text-gold mb-2">
             Treasure of the Nile
           </h1>
-          <p className="text-papyrus/70 text-lg">Volume II: The Lost Relics</p>
-          <div className="mt-4 text-gold/50 text-sm">University of Malaya</div>
+          <p className="text-papyrus/70 text-base md:text-lg">Volume II: The Lost Relics</p>
+          <div className="mt-3 md:mt-4 text-gold/50 text-xs md:text-sm">University of Malaya</div>
         </div>
 
         {/* Login/Register Card */}
         <div className="card egyptian-border">
           {/* Mode Toggle */}
-          <div className="flex gap-2 mb-6">
+          <div className="flex gap-2 mb-4 md:mb-6">
             <Button
               type="button"
               onClick={() => setMode('login')}
@@ -73,15 +73,15 @@ function TeamLogin() {
           </div>
 
           {mode === 'login' ? (
-            <form onSubmit={handleLogin} className="space-y-4">
+            <form onSubmit={handleLogin} className="space-y-3 md:space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="teamCode" className="text-gold font-semibold">
+                <Label htmlFor="teamCode" className="text-gold font-semibold text-sm md:text-base">
                   Team Code
                 </Label>
                 <Input
                   id="teamCode"
                   type="text"
-                  className="input"
+                  className="input text-sm md:text-base min-h-[44px]"
                   value={teamCode}
                   onChange={(e) => setTeamCode(e.target.value.toUpperCase())}
                   placeholder="MIGHTY-PHARAOH-777"
@@ -108,15 +108,15 @@ function TeamLogin() {
               </Button>
             </form>
           ) : (
-            <form onSubmit={handleRegister} className="space-y-4">
+            <form onSubmit={handleRegister} className="space-y-3 md:space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="teamName" className="text-gold font-semibold">
+                <Label htmlFor="teamName" className="text-gold font-semibold text-sm md:text-base">
                   Team Name
                 </Label>
                 <Input
                   id="teamName"
                   type="text"
-                  className="input"
+                  className="input text-sm md:text-base min-h-[44px]"
                   value={teamName}
                   onChange={(e) => setTeamName(e.target.value)}
                   placeholder="The Mighty Pharaohs"
@@ -151,10 +151,10 @@ function TeamLogin() {
         </div>
 
         {/* Quick links */}
-        <div className="mt-6 text-center space-y-2">
+        <div className="mt-4 md:mt-6 text-center space-y-2">
           <Link
             to="/leaderboard"
-            className="text-gold hover:text-gold-light transition-colors text-sm block"
+            className="text-gold hover:text-gold-light transition-colors text-sm block min-h-[44px] flex items-center justify-center"
           >
             📊 View Leaderboard
           </Link>

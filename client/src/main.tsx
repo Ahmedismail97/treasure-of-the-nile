@@ -13,6 +13,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <App />
         <Toaster
           position="top-center"
+          containerStyle={{
+            top: '1rem',
+          }}
           toastOptions={{
             duration: 4000,
             style: {
@@ -20,7 +23,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               color: '#F5F5DC',
               border: '2px solid #D4AF37',
               borderRadius: '8px',
-              padding: '16px',
+              padding: '12px 16px',
+              fontSize: '14px',
+              maxWidth: '90vw',
+              wordBreak: 'break-word',
             },
             success: {
               iconTheme: {

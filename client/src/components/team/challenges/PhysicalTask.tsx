@@ -30,20 +30,20 @@ function PhysicalTask({ station, teamCode, onSuccess, onError }: PhysicalTaskPro
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Task description */}
       <Card className="card-unlocked egyptian-border">
-        <div className="text-gold text-sm mb-2 font-semibold flex items-center gap-1">
-          <Dumbbell className="h-4 w-4" />
+        <div className="text-gold text-xs md:text-sm mb-2 font-semibold flex items-center gap-1">
+          <Dumbbell className="h-3 w-3 md:h-4 md:w-4" />
           <span>Physical Challenge:</span>
         </div>
-        <p className="text-papyrus text-lg">{station.challengeData?.taskDescription}</p>
+        <p className="text-papyrus text-sm md:text-base lg:text-lg">{station.challengeData?.taskDescription}</p>
       </Card>
 
       {/* Instructions */}
-      <div className="bg-blue-dark/50 border border-gold/30 rounded-lg p-4 space-y-2">
-        <p className="text-papyrus/90 text-sm font-semibold">How it works:</p>
-        <ol className="list-decimal list-inside text-papyrus/70 text-sm space-y-1 ml-2">
+      <div className="bg-blue-dark/50 border border-gold/30 rounded-lg p-3 md:p-4 space-y-2">
+        <p className="text-papyrus/90 text-xs md:text-sm font-semibold">How it works:</p>
+        <ol className="list-decimal list-inside text-papyrus/70 text-xs md:text-sm space-y-1 ml-2">
           <li>Complete the physical task at this station</li>
           <li>Click "Mark as Complete" below</li>
           <li>An admin at this location will verify your completion</li>
@@ -53,12 +53,12 @@ function PhysicalTask({ station, teamCode, onSuccess, onError }: PhysicalTaskPro
 
       {/* Optional notes */}
       <div>
-        <Label htmlFor="notes" className="text-gold font-semibold">
+        <Label htmlFor="notes" className="text-gold font-semibold text-sm md:text-base">
           Notes (Optional)
         </Label>
         <textarea
           id="notes"
-          className="input mt-2 min-h-[100px] resize-none w-full"
+          className="input mt-2 min-h-[100px] md:min-h-[120px] resize-none w-full text-sm md:text-base"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           placeholder="Add any notes or comments about your completion..."
@@ -69,7 +69,7 @@ function PhysicalTask({ station, teamCode, onSuccess, onError }: PhysicalTaskPro
       {/* Submit button */}
       <Button
         onClick={handleSubmit}
-        className="w-full"
+        className="w-full min-h-[44px] text-sm md:text-base"
         disabled={submitting}
       >
         {submitting ? (
