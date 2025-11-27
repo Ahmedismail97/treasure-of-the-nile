@@ -18,11 +18,11 @@ COPY . .
 RUN mkdir -p database uploads
 
 # Expose port
-EXPOSE 5000
+EXPOSE 5001
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s \
-  CMD node -e "require('http').get('http://localhost:5000/api/v1/health', (r) => r.statusCode === 200 ? process.exit(0) : process.exit(1))"
+  CMD node -e "require('http').get('http://localhost:5001/api/v1/health', (r) => r.statusCode === 200 ? process.exit(0) : process.exit(1))"
 
 # Start application
 CMD ["node", "src/server.js"]

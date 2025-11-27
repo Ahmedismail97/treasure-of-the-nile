@@ -9,21 +9,24 @@ Congratulations! Your Egyptian-themed treasure hunt management system is **fully
 ## 🚀 How to Start
 
 ### 1. Install Dependencies
+
 ```bash
 # From project root
 npm run install:all
 ```
 
 ### 2. Start Backend
+
 ```bash
 cd server
 npm run seed    # First time only - creates database with stations & teams
 npm run dev     # Start server
 ```
 
-Server runs at: **http://localhost:5000**
+Server runs at: **http://localhost:5001**
 
 ### 3. Start Frontend
+
 ```bash
 # In a new terminal
 cd client
@@ -39,6 +42,7 @@ Frontend runs at: **http://localhost:5173**
 ### Test with Sample Teams
 
 The seeding created 3 teams you can use:
+
 - **MIGHTY-PHARAOH-777**
 - **GOLDEN-SPHINX-888**
 - **SACRED-ANUBIS-999**
@@ -50,25 +54,30 @@ The seeding created 3 teams you can use:
 2. **Register a new team** or **login with a sample code**
 
 3. **Complete Station 1** (The Gateway of Ra - Check-in)
+
    - Click "Start Challenge"
    - Click "Check In"
    - Should receive 50 points ✅
 
 4. **Complete Station 2** (The Sphinx's Riddle)
+
    - Answer: `echo`
    - Try wrong answer first to test attempt penalties
    - Request a hint to test hint system (-10 points)
    - Submit correct answer ✅
 
 5. **Test QR Scanner** (Station 3 - Anubis's Chamber)
+
    - You'll need to generate QR code first (see Admin section)
    - Scan with your phone's camera ✅
 
 6. **Test Photo Upload** (Station 5)
+
    - Upload a team photo
    - Check it goes to "Awaiting Verification" status ✅
 
 7. **View Leaderboard**
+
    - Click "View Leaderboard"
    - Should see your team ranked
    - Open in another window to see real-time updates ✅
@@ -85,11 +94,12 @@ The seeding created 3 teams you can use:
 
 ```bash
 # Using curl
-curl -X POST http://localhost:5000/api/v1/admin/qr/generate-all \
+curl -X POST http://localhost:5001/api/v1/admin/qr/generate-all \
   -H "Authorization: Bearer YOUR_TOKEN"
 ```
 
 Or use **DB Browser for SQLite**:
+
 1. Open `server/database/treasure_hunt.db`
 2. Browse `stations` table
 3. View `qrCode` column for QR data
@@ -99,6 +109,7 @@ Or use **DB Browser for SQLite**:
 ### Verify Submissions
 
 **Using DB Browser**:
+
 1. Open database
 2. Go to `progress` table
 3. Find entries with `status = 'pending_verification'`
@@ -106,16 +117,18 @@ Or use **DB Browser for SQLite**:
 5. Team will be notified instantly via WebSocket!
 
 **Using API**:
+
 ```bash
-curl -X POST http://localhost:5000/api/v1/admin/progress/verify \
+curl -X POST http://localhost:5001/api/v1/admin/progress/verify \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"progressId": 1, "approved": true, "points": 100}'
 ```
 
 ### Admin Login (for API)
+
 ```bash
-curl -X POST http://localhost:5000/api/v1/admin/login \
+curl -X POST http://localhost:5001/api/v1/admin/login \
   -H "Content-Type: application/json" \
   -d '{"username": "admin", "password": "TreasureNile2024!"}'
 ```
@@ -125,6 +138,7 @@ curl -X POST http://localhost:5000/api/v1/admin/login \
 ## ✨ System Features (All Working!)
 
 ### Team Features
+
 - ✅ Self-registration with auto-generated Egyptian team codes
 - ✅ Team login with code
 - ✅ Real-time progress dashboard
@@ -140,6 +154,7 @@ curl -X POST http://localhost:5000/api/v1/admin/login \
 - ✅ Egyptian-themed UI with animations
 
 ### Admin Features
+
 - ✅ Station management (CRUD via API)
 - ✅ Team management (CRUD via API)
 - ✅ Photo/task verification
@@ -150,6 +165,7 @@ curl -X POST http://localhost:5000/api/v1/admin/login \
 - ✅ Database access via DB Browser
 
 ### Technical Features
+
 - ✅ REST API with full CRUD
 - ✅ Real-time WebSocket updates
 - ✅ SQLite database with full schema
@@ -166,6 +182,7 @@ curl -X POST http://localhost:5000/api/v1/admin/login \
 ## 🎨 Egyptian Theme
 
 The UI features authentic Egyptian aesthetics:
+
 - 🏛️ Hieroglyphic-inspired decorations
 - 🌅 Gold (#D4AF37) and deep blue (#1A3A52) palette
 - 📜 Papyrus-style backgrounds
@@ -189,8 +206,9 @@ docker-compose down
 ```
 
 Access:
+
 - **Frontend**: http://localhost:3000
-- **Backend**: http://localhost:5000
+- **Backend**: http://localhost:5001
 - **Database**: `server/database/treasure_hunt.db`
 
 ---
@@ -240,6 +258,7 @@ ESAUM/
 ## 🎯 Event Day Checklist
 
 ### 1 Week Before
+
 - [ ] Test system end-to-end
 - [ ] Generate QR codes for all 10 stations
 - [ ] Print QR codes
@@ -247,6 +266,7 @@ ESAUM/
 - [ ] Test on mobile devices
 
 ### 3 Days Before
+
 - [ ] Deploy to production server
 - [ ] Place QR codes at campus locations
 - [ ] Test QR scanning at actual locations
@@ -254,6 +274,7 @@ ESAUM/
 - [ ] Backup database
 
 ### Event Day
+
 - [ ] Start system: `docker-compose up -d`
 - [ ] Enable event in database: `UPDATE event_settings SET isEventActive = 1`
 - [ ] Monitor with DB Browser
@@ -261,6 +282,7 @@ ESAUM/
 - [ ] Watch leaderboard for issues
 
 ### After Event
+
 - [ ] Manually end event in DB: `UPDATE event_settings SET isEventActive = 0`
 - [ ] Export final results
 - [ ] Backup final database
@@ -271,6 +293,7 @@ ESAUM/
 ## 🏆 Success Metrics
 
 Your system can now handle:
+
 - ✅ 50+ teams simultaneously
 - ✅ 10 sequential stations per team
 - ✅ 5 different challenge types
@@ -286,6 +309,7 @@ Your system can now handle:
 ## 🆘 Troubleshooting
 
 ### Backend Issues
+
 ```bash
 # Reset database
 rm server/database/treasure_hunt.db
@@ -296,6 +320,7 @@ cd server && npm run dev
 ```
 
 ### Frontend Issues
+
 ```bash
 # Clear cache and rebuild
 cd client
@@ -305,11 +330,13 @@ npm run dev
 ```
 
 ### WebSocket Not Connecting
+
 - Check CORS settings in `server/src/server.js`
 - Verify `CLIENT_URL` in `server/.env`
 - Check firewall/proxy settings
 
 ### QR Scanner Not Working
+
 - Must use HTTPS or localhost
 - Grant camera permissions in browser
 - Test on mobile device
@@ -322,6 +349,7 @@ npm run dev
 A **production-ready, event-scale treasure hunt system** with:
 
 **Backend**:
+
 - Complete REST API (20+ endpoints)
 - Real-time WebSocket server
 - Secure authentication (JWT + team codes)
@@ -332,6 +360,7 @@ A **production-ready, event-scale treasure hunt system** with:
 - SQLite database with full schema
 
 **Frontend**:
+
 - Beautiful Egyptian-themed UI
 - Mobile-responsive design
 - Team registration & login
@@ -344,6 +373,7 @@ A **production-ready, event-scale treasure hunt system** with:
 - Smooth animations
 
 **Deployment**:
+
 - Docker containerization
 - Production-ready Nginx config
 - Environment configuration
@@ -377,4 +407,4 @@ You now have a **professional, scalable treasure hunt management system** ready 
 
 ---
 
-*Built with ❤️ using React, Node.js, Express, SQLite, Socket.io, and Egyptian mythology*
+_Built with ❤️ using React, Node.js, Express, SQLite, Socket.io, and Egyptian mythology_
