@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CheckCircle, Loader2 } from 'lucide-react'
+import { CheckCircle, Loader2, Landmark } from 'lucide-react'
 import { progressAPI } from '@/services/api'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -30,8 +30,8 @@ function CheckIn({ station, teamCode, onSuccess, onError }: CheckInProps) {
   return (
     <div className="space-y-4 md:space-y-6 text-center">
       {/* Welcome message */}
-      <div className="text-4xl md:text-5xl lg:text-6xl mb-3 md:mb-4 animate-float">
-        🏛️
+      <div className="mb-3 md:mb-4 animate-float flex justify-center">
+        <Landmark className="h-16 w-16 md:h-20 md:w-20 lg:h-24 lg:w-24 text-gold" />
       </div>
 
       <Card className="card-unlocked egyptian-border">

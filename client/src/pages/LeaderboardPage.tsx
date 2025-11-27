@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { leaderboardAPI } from "@/services/api";
 import { useLeaderboardWebSocket } from "@/hooks/useWebSocket";
 import { format } from "date-fns";
+import { Trophy, BarChart3, Landmark, CheckCircle2, PartyPopper, Vase } from "lucide-react";
 import type { LeaderboardEntry } from "@/types";
 
 function LeaderboardPage() {
@@ -30,9 +31,9 @@ function LeaderboardPage() {
   };
 
   const getRankIcon = (rank?: number) => {
-    if (rank === 1) return "🥇";
-    if (rank === 2) return "🥈";
-    if (rank === 3) return "🥉";
+    if (rank === 1) return <Trophy className="h-8 w-8 md:h-10 md:w-10 text-yellow-400" />;
+    if (rank === 2) return <Trophy className="h-8 w-8 md:h-10 md:w-10 text-gray-400" />;
+    if (rank === 3) return <Trophy className="h-8 w-8 md:h-10 md:w-10 text-amber-600" />;
     return `#${rank}`;
   };
 
@@ -49,12 +50,12 @@ function LeaderboardPage() {
         {/* Header */}
         <div className="text-center mb-4 md:mb-6 lg:mb-8">
           <motion.div
-            className="text-4xl md:text-5xl lg:text-6xl mb-3 md:mb-4 animate-float"
+            className="mb-3 md:mb-4 animate-float flex justify-center"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", duration: 0.6 }}
           >
-            🏆
+            <Trophy className="h-16 w-16 md:h-20 md:w-20 lg:h-24 lg:w-24 text-gold" />
           </motion.div>
           <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-cinzel text-gold mb-2">
             Leaderboard
@@ -77,7 +78,9 @@ function LeaderboardPage() {
           </div>
         ) : leaderboard.length === 0 ? (
           <div className="card text-center py-12">
-            <div className="text-6xl mb-4">📊</div>
+            <div className="mb-4 flex justify-center">
+              <BarChart3 className="h-16 w-16 text-gold/70" />
+            </div>
             <p className="text-papyrus/70">No teams have started yet</p>
           </div>
         ) : (
@@ -102,13 +105,22 @@ function LeaderboardPage() {
                       {team.teamName}
                     </h3>
                     <div className="flex flex-wrap items-center gap-1 md:gap-2 text-xs text-papyrus/70 mt-1">
-                      <span>🏛️ Station {team.currentStation}</span>
+                      <span className="flex items-center gap-1">
+                        <Landmark className="h-3 w-3" />
+                        Station {team.currentStation}
+                      </span>
                       <span className="hidden sm:inline">•</span>
-                      <span>✅ {team.stationsCompleted || 0}/10</span>
+                      <span className="flex items-center gap-1">
+                        <CheckCircle2 className="h-3 w-3" />
+                        {team.stationsCompleted || 0}/10
+                      </span>
                       {team.isFinished && (
                         <>
                           <span className="hidden sm:inline">•</span>
-                          <span className="text-green-400">🎉 Completed!</span>
+                          <span className="text-green-400 flex items-center gap-1">
+                            <PartyPopper className="h-3 w-3" />
+                            Completed!
+                          </span>
                         </>
                       )}
                     </div>
@@ -163,7 +175,10 @@ function LeaderboardPage() {
 
         {/* Footer */}
         <div className="mt-12 text-center text-papyrus/50 text-sm">
-          <p>May the swiftest seekers claim the treasure! 🏺</p>
+          <p className="flex items-center justify-center gap-2">
+            May the swiftest seekers claim the treasure!
+            <Vase className="h-4 w-4" />
+          </p>
         </div>
       </div>
     </div>

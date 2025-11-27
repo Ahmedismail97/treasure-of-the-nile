@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Lock, Unlock, CheckCircle, Clock, MapPin } from "lucide-react";
+import { Lock, Unlock, CheckCircle, Clock, MapPin, Puzzle, QrCode, Camera, Dumbbell, Landmark, RotateCw, Play } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -42,19 +42,20 @@ function StationCard({ station, progress, teamCode }: StationCardProps) {
   };
 
   const getChallengeTypeIcon = (type: string) => {
+    const iconClass = "h-5 w-5 md:h-6 md:w-6 text-gold";
     switch (type) {
       case "riddle":
-        return "🧩";
+        return <Puzzle className={iconClass} />;
       case "qr":
-        return "📱";
+        return <QrCode className={iconClass} />;
       case "photo":
-        return "📸";
+        return <Camera className={iconClass} />;
       case "physical":
-        return "💪";
+        return <Dumbbell className={iconClass} />;
       case "checkin":
-        return "✓";
+        return <CheckCircle className={iconClass} />;
       default:
-        return "🏛️";
+        return <Landmark className={iconClass} />;
     }
   };
 
@@ -180,12 +181,12 @@ function StationCard({ station, progress, teamCode }: StationCardProps) {
               <Button className="w-full min-h-[48px] md:min-h-[44px] text-sm md:text-base font-semibold">
                 {progress.status === "in_progress" ? (
                   <>
-                    <span>↻</span>
+                    <RotateCw className="h-4 w-4" />
                     <span>Continue Challenge</span>
                   </>
                 ) : (
                   <>
-                    <span>▶</span>
+                    <Play className="h-4 w-4" />
                     <span>Start Challenge</span>
                   </>
                 )}

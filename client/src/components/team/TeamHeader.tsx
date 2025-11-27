@@ -1,4 +1,4 @@
-import { LogOut, Trophy } from 'lucide-react'
+import { LogOut, Trophy, Landmark } from 'lucide-react'
 import { useTeam } from '@/context/TeamContext'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
@@ -17,7 +17,9 @@ function TeamHeader({ team }: TeamHeaderProps) {
         <div className="flex items-center justify-between gap-2">
           {/* Logo and team name */}
           <div className="flex items-center gap-2 md:gap-4 min-w-0 flex-1">
-            <div className="text-2xl md:text-3xl flex-shrink-0">🏛️</div>
+            <div className="flex-shrink-0">
+              <Landmark className="h-6 w-6 md:h-8 md:w-8 text-gold" />
+            </div>
             <div className="min-w-0 flex-1">
               <h1 className="text-base md:text-xl font-cinzel text-gold truncate">
                 {team.teamName}

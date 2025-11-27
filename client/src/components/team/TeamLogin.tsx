@@ -5,7 +5,7 @@ import toast from 'react-hot-toast'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Landmark, Sparkles, BarChart3, Vase } from 'lucide-react'
 
 type Mode = 'login' | 'register'
 
@@ -42,7 +42,9 @@ function TeamLogin() {
       <div className="max-w-md w-full">
         {/* Logo/Title */}
         <div className="text-center mb-6 md:mb-8 animate-float">
-          <div className="text-4xl md:text-6xl mb-3 md:mb-4">🏛️</div>
+          <div className="mb-3 md:mb-4 flex justify-center">
+            <Landmark className="h-16 w-16 md:h-24 md:w-24 text-gold" />
+          </div>
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-cinzel text-gold mb-2">
             Treasure of the Nile
           </h1>
@@ -103,7 +105,10 @@ function TeamLogin() {
                     Loading...
                   </>
                 ) : (
-                  '🏛️ Enter the Temple'
+                  <>
+                    <Landmark className="mr-2 h-4 w-4" />
+                    Enter the Temple
+                  </>
                 )}
               </Button>
             </form>
@@ -140,7 +145,10 @@ function TeamLogin() {
                     Creating...
                   </>
                 ) : (
-                  '✨ Begin Your Quest'
+                  <>
+                    <Sparkles className="mr-2 h-4 w-4" />
+                    Begin Your Quest
+                  </>
                 )}
               </Button>
               <p className="text-papyrus/70 text-xs text-center">
@@ -154,12 +162,14 @@ function TeamLogin() {
         <div className="mt-4 md:mt-6 text-center space-y-2">
           <Link
             to="/leaderboard"
-            className="text-gold hover:text-gold-light transition-colors text-sm block min-h-[44px] flex items-center justify-center"
+            className="text-gold hover:text-gold-light transition-colors text-sm block min-h-[44px] flex items-center justify-center gap-2"
           >
-            📊 View Leaderboard
+            <BarChart3 className="h-4 w-4" />
+            View Leaderboard
           </Link>
-          <div className="text-papyrus/50 text-xs">
-            May the wisdom of the pharaohs guide you 🏺
+          <div className="text-papyrus/50 text-xs flex items-center justify-center gap-1">
+            May the wisdom of the pharaohs guide you
+            <Vase className="h-3 w-3" />
           </div>
         </div>
       </div>
