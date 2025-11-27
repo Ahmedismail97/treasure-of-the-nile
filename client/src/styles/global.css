@@ -2,6 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    /* Egyptian theme mapped to shadcn variables */
+    --background: 197 47% 22%;        /* blue-deep: #1A3A52 */
+    --foreground: 60 8% 95%;          /* papyrus: #F5F5DC */
+
+    --card: 197 47% 22%;              /* blue-deep */
+    --card-foreground: 60 8% 95%;     /* papyrus */
+
+    --popover: 197 47% 22%;           /* blue-deep */
+    --popover-foreground: 60 8% 95%;  /* papyrus */
+
+    --primary: 45 75% 53%;            /* gold: #D4AF37 */
+    --primary-foreground: 197 47% 15%; /* blue-dark for contrast */
+
+    --secondary: 197 42% 45%;         /* blue-sky: #4A90A4 */
+    --secondary-foreground: 60 8% 95%; /* papyrus */
+
+    --muted: 197 47% 30%;             /* Muted blue */
+    --muted-foreground: 45 43% 76%;   /* gold-light */
+
+    --accent: 176 63% 52%;            /* turquoise: #30D5C8 */
+    --accent-foreground: 197 47% 15%; /* blue-dark */
+
+    --destructive: 0 84% 60%;         /* Red for errors */
+    --destructive-foreground: 60 8% 95%; /* papyrus */
+
+    --border: 45 75% 53%;             /* gold */
+    --input: 45 75% 53%;              /* gold */
+    --ring: 45 75% 53%;               /* gold */
+
+    --radius: 0.5rem;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
