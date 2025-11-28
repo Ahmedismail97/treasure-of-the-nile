@@ -21,7 +21,7 @@ function AdminPanel() {
               Database Management
             </h3>
             <p className="text-papyrus/70 text-xs md:text-sm mb-2">
-              Use DB Browser for SQLite to view and edit:
+              Use pgAdmin or psql to view and edit:
             </p>
             <ul className="text-papyrus/60 text-xs md:text-sm list-disc list-inside space-y-1">
               <li>Teams and their progress</li>
@@ -30,9 +30,9 @@ function AdminPanel() {
               <li>Event settings</li>
             </ul>
             <p className="text-gold/70 text-xs mt-2 break-all">
-              Open:{" "}
+              Connect to:{" "}
               <code className="bg-blue-dark px-2 py-1 rounded text-xs">
-                server/database/treasure_hunt.db
+                PostgreSQL (localhost:5432/treasure_hunt)
               </code>
             </p>
           </div>

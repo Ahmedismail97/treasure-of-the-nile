@@ -118,8 +118,11 @@ const startServer = async (): Promise<void> => {
       console.log(`   • API URL: http://localhost:${PORT}/api/v1`);
       console.log(`   • Health Check: http://localhost:${PORT}/api/v1/health`);
       console.log(`   • Client URL: ${CLIENT_URL}`);
+      const dbHost = process.env.DB_HOST || 'localhost';
+      const dbPort = process.env.DB_PORT || '5432';
+      const dbName = process.env.DB_NAME || 'treasure_hunt';
       console.log(
-        `   • Database: ${process.env.DB_PATH || 'treasure_hunt.db'}`
+        `   • Database: PostgreSQL (${dbHost}:${dbPort}/${dbName})`
       );
       console.log('\n🎯 API Endpoints:');
       console.log(`   • Team: http://localhost:${PORT}/api/v1/team`);
