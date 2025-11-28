@@ -111,34 +111,35 @@ curl -X POST http://localhost:5001/api/v1/admin/qr/generate/3 \
 
 ## 💾 Access Database
 
-### Using DB Browser for SQLite
+### Using pgAdmin
 
-1. Download: https://sqlitebrowser.org/
-2. Open: `server/database/treasure_hunt.db`
-3. Browse all tables
+1. Download: https://www.pgadmin.org/
+2. Connect to PostgreSQL (localhost:5432)
+3. Navigate to `treasure_hunt` database
+4. Browse all tables
 
 ### Quick Queries
 
 ```sql
 -- View all teams
-SELECT * FROM teams ORDER BY totalPoints DESC;
+SELECT * FROM teams ORDER BY "totalPoints" DESC;
 
 -- View team progress
-SELECT t.teamName, t.totalPoints, t.currentStation, p.status
+SELECT t."teamName", t."totalPoints", t."currentStation", p.status
 FROM teams t
-JOIN progress p ON t.id = p.teamId
-WHERE t.teamCode = 'YOUR-TEAM-CODE';
+JOIN progress p ON t.id = p."teamId"
+WHERE t."teamCode" = 'YOUR-TEAM-CODE';
 
 -- View leaderboard
-SELECT teamName, totalPoints, currentStation, completedAt
+SELECT "teamName", "totalPoints", "currentStation", "completedAt"
 FROM teams
-WHERE isActive = 1
-ORDER BY totalPoints DESC, completedAt ASC;
+WHERE "isActive" = true
+ORDER BY "totalPoints" DESC, "completedAt" ASC;
 
 -- Manually verify a submission
 UPDATE progress
-SET status = 'completed', pointsEarned = 100
-WHERE teamId = 1 AND stationId = 5;
+SET status = 'completed', "pointsEarned" = 100
+WHERE "teamId" = 1 AND "stationId" = 5;
 ```
 
 ---
@@ -216,7 +217,7 @@ docker-compose down
 
 - ✅ REST API with 20+ endpoints
 - ✅ WebSocket server for real-time updates
-- ✅ SQLite database with full schema
+- ✅ PostgreSQL database with full schema
 - ✅ File upload handling (photos)
 - ✅ JWT authentication
 - ✅ Sequential station locking
@@ -339,7 +340,9 @@ npm run dev
 
 ```bash
 # Delete and recreate
-rm server/database/treasure_hunt.db
+# Reset PostgreSQL database
+psql -h localhost -U postgres -c "DROP DATABASE IF EXISTS treasure_hunt;"
+psql -h localhost -U postgres -c "CREATE DATABASE treasure_hunt;"
 cd server && npm run seed
 ```
 
@@ -358,7 +361,7 @@ ESAUM/
 ├── server/
 │   ├── src/              # All backend code ✅
 │   ├── scripts/          # Seeding utilities ✅
-│   ├── database/         # SQLite database
+│   └── uploads/          # Photo uploads
 │   └── package.json      # Dependencies ✅
 │
 ├── client/

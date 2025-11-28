@@ -146,29 +146,30 @@ curl "http://localhost:5001/api/v1/progress/station/3?teamCode=MIGHTY-PHARAOH-77
 
 ## 📊 Database Access
 
-### Using DB Browser for SQLite
+### Using pgAdmin
 
-1. Open DB Browser
-2. Open file: `server/database/treasure_hunt.db`
-3. Browse tables: Team, Station, Progress, Admin, EventSettings
+1. Install and open pgAdmin
+2. Connect to PostgreSQL (localhost:5432)
+3. Navigate to `treasure_hunt` database
+4. Browse tables: teams, stations, progress, admins, event_settings
 
-### Using CLI
+### Using psql CLI
 
 ```bash
-sqlite3 server/database/treasure_hunt.db
+psql -h localhost -U postgres -d treasure_hunt
 
 # View all teams
 SELECT * FROM teams;
 
 # View all stations
-SELECT * FROM stations ORDER BY stationNumber;
+SELECT * FROM stations ORDER BY "stationNumber";
 
 # View progress for team ID 1
-SELECT * FROM progress WHERE teamId = 1;
+SELECT * FROM progress WHERE "teamId" = 1;
 
 # View leaderboard
-SELECT teamName, totalPoints, currentStation FROM teams
-ORDER BY totalPoints DESC, completedAt ASC;
+SELECT "teamName", "totalPoints", "currentStation" FROM teams
+ORDER BY "totalPoints" DESC, "completedAt" ASC;
 ```
 
 ## 🔧 Utility Scripts

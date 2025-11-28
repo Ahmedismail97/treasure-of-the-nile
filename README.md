@@ -22,9 +22,10 @@ An Egyptian-themed treasure hunt management system for campus-wide scavenger hun
 
 ### Database Access (choose one)
 
-- **DB Browser for SQLite** (Recommended) - [Download here](https://sqlitebrowser.org/)
+- **PostgreSQL** - Required database server
+- **pgAdmin** - [Download here](https://www.pgadmin.org/) (Recommended GUI)
 - **TablePlus** - [Download here](https://tableplus.com/)
-- **sqlite3 CLI** (included in macOS)
+- **psql CLI** - PostgreSQL command-line client
 
 ## Quick Start with Docker
 
@@ -52,11 +53,15 @@ docker-compose down
 # 1. Install all dependencies
 npm run install:all
 
-# 2. Setup environment variables
-cp server/.env.example server/.env
-# Edit server/.env with your configuration
+# 2. Setup PostgreSQL database
+# Install PostgreSQL locally or use Docker:
+docker run --name treasure-hunt-postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=treasure_hunt -p 5432:5432 -d postgres:15-alpine
 
-# 3. Run database migrations and seed data
+# 3. Setup environment variables
+cp server/.env.example server/.env
+# Edit server/.env with your PostgreSQL configuration
+
+# 4. Run database migrations and seed data
 cd server
 npm run migrate
 npm run seed
@@ -71,26 +76,37 @@ npm run dev
 
 ## Database Access
 
-The SQLite database is located at `server/database/treasure_hunt.db`
+The application uses PostgreSQL. When running with Docker, the database is automatically set up. For local development, ensure PostgreSQL is running.
 
-### Using DB Browser for SQLite
+### Using pgAdmin
 
-1. Open DB Browser for SQLite
-2. Click "Open Database"
-3. Navigate to `ESAUM/server/database/treasure_hunt.db`
-4. View/edit tables: Team, Station, Progress, Admin, EventSettings
+1. Install and open pgAdmin
+2. Connect to your PostgreSQL server (default: localhost:5432)
+3. Navigate to the `treasure_hunt` database
+4. View/edit tables: teams, stations, progress, admins, event_settings
 
-### Using CLI
+### Using psql CLI
 
 ```bash
-sqlite3 server/database/treasure_hunt.db
+psql -h localhost -U postgres -d treasure_hunt
 
 # Example queries
-.tables                                    # List all tables
-SELECT * FROM Team;                        # View all teams
-SELECT * FROM Station ORDER BY stationNumber;  # View stations in order
-SELECT * FROM Progress WHERE teamId = 1;   # View team progress
+\dt                                       # List all tables
+SELECT * FROM teams;                     # View all teams
+SELECT * FROM stations ORDER BY "stationNumber";  # View stations in order
+SELECT * FROM progress WHERE "teamId" = 1;   # View team progress
 ```
+
+### Migrating from SQLite
+
+If you have an existing SQLite database, you can migrate the data:
+
+```bash
+cd server
+npm run migrate-db
+```
+
+This will transfer all data from `server/database/treasure_hunt.db` to your PostgreSQL database.
 
 ## Project Structure
 
@@ -140,7 +156,7 @@ Team dashboard: `http://localhost:3000/`
 
 ### Event Day
 
-- [ ] Enable event in EventSettings (via admin panel or DB Browser)
+- [ ] Enable event in EventSettings (via admin panel or database client)
 - [ ] Monitor system performance
 - [ ] Verify challenges as they're submitted
 - [ ] Manually end event when complete
@@ -192,7 +208,7 @@ npm run dev:client
 
 - Node.js + Express
 - Sequelize ORM
-- SQLite3
+- PostgreSQL
 - Socket.io
 - JWT authentication
 
@@ -212,14 +228,14 @@ docker-compose logs client
 docker-compose restart server
 ```
 
-### Database Locked
+### Database Connection Issues
 
-If you get "database is locked" error:
+If you get database connection errors:
 
-1. Close DB Browser for SQLite
-2. Stop Docker containers
-3. Delete lock files: `rm server/database/*.db-*`
-4. Restart containers
+1. Ensure PostgreSQL is running (check with `docker ps` for Docker setup)
+2. Verify environment variables in `server/.env` match your database configuration
+3. Check PostgreSQL logs: `docker-compose logs postgres`
+4. Test connection: `psql -h localhost -U postgres -d treasure_hunt`
 
 ### QR Scanner Not Working
 

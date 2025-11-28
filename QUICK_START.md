@@ -175,31 +175,41 @@ docker-compose down
 
 ## 💾 Database Access
 
-### Using DB Browser for SQLite
+### Using pgAdmin
 
-1. Download: https://sqlitebrowser.org/
-2. Open file: `server/database/treasure_hunt.db`
-3. Browse tables and data
+1. Download: https://www.pgadmin.org/
+2. Connect to PostgreSQL (default: localhost:5432)
+3. Navigate to `treasure_hunt` database
+4. Browse tables and data
 
-### Using CLI
+### Using psql CLI
 
 ```bash
-sqlite3 server/database/treasure_hunt.db
+psql -h localhost -U postgres -d treasure_hunt
 
 # View teams
 SELECT * FROM teams;
 
 # View stations
-SELECT * FROM stations ORDER BY stationNumber;
+SELECT * FROM stations ORDER BY "stationNumber";
 
 # View progress for team 1
-SELECT * FROM progress WHERE teamId = 1;
+SELECT * FROM progress WHERE "teamId" = 1;
 
 # Leaderboard query
-SELECT teamName, totalPoints, currentStation, completedAt
+SELECT "teamName", "totalPoints", "currentStation", "completedAt"
 FROM teams
-WHERE isActive = 1
-ORDER BY totalPoints DESC, completedAt ASC;
+WHERE "isActive" = true
+ORDER BY "totalPoints" DESC, "completedAt" ASC;
+```
+
+### Migrating from SQLite
+
+If you have an existing SQLite database:
+
+```bash
+cd server
+npm run migrate-db
 ```
 
 ---
@@ -304,7 +314,6 @@ ESAUM/
 │   │   ├── config/           # Database, WebSocket
 │   │   └── server.js         # Main server file
 │   ├── scripts/              # Seeding & utilities
-│   ├── database/             # SQLite database
 │   └── uploads/              # Photo uploads
 │
 ├── client/                    # Frontend (85% complete)
@@ -350,7 +359,7 @@ ESAUM/
 2. ✅ Verify sequential station locking
 3. ✅ Test all 5 challenge types
 4. ✅ Generate QR codes for stations
-5. ✅ View/edit database with DB Browser
+5. ✅ View/edit database with pgAdmin or psql
 6. ✅ Monitor real-time WebSocket events
 7. ✅ Test admin verification flow
 8. ✅ Check leaderboard ranking logic
@@ -380,8 +389,10 @@ ESAUM/
 ### Database Issues
 
 ```bash
-# Reset database
-rm server/database/treasure_hunt.db
+# Reset database (PostgreSQL)
+# Connect to PostgreSQL and drop/recreate database:
+psql -h localhost -U postgres -c "DROP DATABASE IF EXISTS treasure_hunt;"
+psql -h localhost -U postgres -c "CREATE DATABASE treasure_hunt;"
 cd server && npm run seed
 ```
 

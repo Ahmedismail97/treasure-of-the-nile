@@ -1,4 +1,4 @@
-import { Station } from '@/types'
+import { Station } from "@/types";
 import {
   Table,
   TableBody,
@@ -6,50 +6,55 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { MoreVertical, Edit, Trash2, QrCode } from 'lucide-react'
+} from "@/components/ui/dropdown-menu";
+import { MoreVertical, Edit, Trash2, QrCode } from "lucide-react";
 
 interface StationsTableProps {
-  stations: Station[]
-  onEditStation: (station: Station) => void
-  onDeleteStation: (station: Station) => void
-  onViewQRCode: (station: Station) => void
+  stations: Station[];
+  onEditStation: (station: Station) => void;
+  onDeleteStation: (station: Station) => void;
+  onViewQRCode: (station: Station) => void;
 }
 
-function StationsTable({ stations, onEditStation, onDeleteStation, onViewQRCode }: StationsTableProps) {
+function StationsTable({
+  stations,
+  onEditStation,
+  onDeleteStation,
+  onViewQRCode,
+}: StationsTableProps) {
   const getChallengeTypeColor = (type: string) => {
     switch (type) {
-      case 'trivia':
-        return 'bg-blue-500/20 text-blue-400 border-blue-500'
-      case 'riddle':
-        return 'bg-purple-500/20 text-purple-400 border-purple-500'
-      case 'photo':
-        return 'bg-green-500/20 text-green-400 border-green-500'
-      case 'physical':
-        return 'bg-orange-500/20 text-orange-400 border-orange-500'
+      case "trivia":
+        return "bg-blue-500/20 text-blue-400 border-blue-500";
+      case "riddle":
+        return "bg-purple-500/20 text-purple-400 border-purple-500";
+      case "photo":
+        return "bg-green-500/20 text-green-400 border-green-500";
+      case "physical":
+        return "bg-orange-500/20 text-orange-400 border-orange-500";
       default:
-        return 'bg-gray-500/20 text-gray-400 border-gray-500'
+        return "bg-gray-500/20 text-gray-400 border-gray-500";
     }
-  }
+  };
 
   const formatChallengeType = (type: string) => {
-    return type.charAt(0).toUpperCase() + type.slice(1)
-  }
+    return type.charAt(0).toUpperCase() + type.slice(1);
+  };
 
   if (stations.length === 0) {
     return (
       <div className="text-center py-12">
         <p className="text-papyrus/50 font-lato">No stations found</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -61,8 +66,9 @@ function StationsTable({ stations, onEditStation, onDeleteStation, onViewQRCode 
           <TableHead className="text-gold font-cinzel">Type</TableHead>
           <TableHead className="text-gold font-cinzel">Points</TableHead>
           <TableHead className="text-gold font-cinzel">Location</TableHead>
-          <TableHead className="text-gold font-cinzel">Order</TableHead>
-          <TableHead className="text-gold font-cinzel text-right">Actions</TableHead>
+          <TableHead className="text-gold font-cinzel text-right">
+            Actions
+          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -74,17 +80,20 @@ function StationsTable({ stations, onEditStation, onDeleteStation, onViewQRCode 
             <TableCell className="font-mono text-gold font-medium">
               {station.stationNumber}
             </TableCell>
-            <TableCell className="text-papyrus font-lato">{station.title}</TableCell>
+            <TableCell className="text-papyrus font-lato">
+              {station.title}
+            </TableCell>
             <TableCell>
               <Badge className={getChallengeTypeColor(station.challengeType)}>
                 {formatChallengeType(station.challengeType)}
               </Badge>
             </TableCell>
-            <TableCell className="text-gold font-cinzel">{station.pointsAvailable}</TableCell>
-            <TableCell className="text-papyrus/70 font-lato text-sm">
-              {station.location || 'N/A'}
+            <TableCell className="text-gold font-cinzel">
+              {station.points}
             </TableCell>
-            <TableCell className="text-papyrus/70 font-lato">{station.orderIndex}</TableCell>
+            <TableCell className="text-papyrus/70 font-lato text-sm">
+              {station.location || "N/A"}
+            </TableCell>
             <TableCell className="text-right">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -128,7 +137,7 @@ function StationsTable({ stations, onEditStation, onDeleteStation, onViewQRCode 
         ))}
       </TableBody>
     </Table>
-  )
+  );
 }
 
-export default StationsTable
+export default StationsTable;

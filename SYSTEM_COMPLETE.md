@@ -98,9 +98,10 @@ curl -X POST http://localhost:5001/api/v1/admin/qr/generate-all \
   -H "Authorization: Bearer YOUR_TOKEN"
 ```
 
-Or use **DB Browser for SQLite**:
+Or use **pgAdmin**:
 
-1. Open `server/database/treasure_hunt.db`
+1. Connect to PostgreSQL (localhost:5432)
+2. Navigate to `treasure_hunt` database
 2. Browse `stations` table
 3. View `qrCode` column for QR data
 4. Use online QR generator with that data
@@ -168,7 +169,7 @@ curl -X POST http://localhost:5001/api/v1/admin/login \
 
 - ✅ REST API with full CRUD
 - ✅ Real-time WebSocket updates
-- ✅ SQLite database with full schema
+- ✅ PostgreSQL database with full schema
 - ✅ JWT authentication for admins
 - ✅ File upload handling (photos)
 - ✅ Sequential locking algorithm
@@ -209,7 +210,7 @@ Access:
 
 - **Frontend**: http://localhost:3000
 - **Backend**: http://localhost:5001
-- **Database**: `server/database/treasure_hunt.db`
+- **Database**: PostgreSQL (localhost:5432/treasure_hunt)
 
 ---
 
@@ -226,7 +227,7 @@ ESAUM/
 │   │   ├── middleware/  # Auth, validation
 │   │   └── server.js    # Main server
 │   ├── scripts/         # Seeding & utilities
-│   └── database/        # SQLite database
+│   └── uploads/          # Photo uploads
 │
 ├── client/              # Frontend (100% complete)
 │   ├── src/
@@ -312,7 +313,9 @@ Your system can now handle:
 
 ```bash
 # Reset database
-rm server/database/treasure_hunt.db
+# Reset PostgreSQL database
+psql -h localhost -U postgres -c "DROP DATABASE IF EXISTS treasure_hunt;"
+psql -h localhost -U postgres -c "CREATE DATABASE treasure_hunt;"
 cd server && npm run seed
 
 # Check logs
@@ -357,7 +360,7 @@ A **production-ready, event-scale treasure hunt system** with:
 - Sequential station locking
 - Point calculation with penalties
 - Comprehensive error handling
-- SQLite database with full schema
+- PostgreSQL database with full schema
 
 **Frontend**:
 
@@ -407,4 +410,4 @@ You now have a **professional, scalable treasure hunt management system** ready 
 
 ---
 
-_Built with ❤️ using React, Node.js, Express, SQLite, Socket.io, and Egyptian mythology_
+_Built with ❤️ using React, Node.js, Express, PostgreSQL, Socket.io, and Egyptian mythology_

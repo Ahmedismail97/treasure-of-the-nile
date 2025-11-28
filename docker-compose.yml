@@ -1,6 +1,26 @@
 version: "3.8"
 
 services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: treasure-hunt-postgres
+    environment:
+      - POSTGRES_DB=${DB_NAME:-treasure_hunt}
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - treasure-hunt-network
+
   server:
     build:
       context: ./server
@@ -9,14 +29,20 @@ services:
     ports:
       - "5001:5001"
     volumes:
-      - ./server/database:/app/database
       - ./server/uploads:/app/uploads
     environment:
       - NODE_ENV=production
       - PORT=5001
-      - DB_PATH=/app/database/treasure_hunt.db
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=${DB_NAME:-treasure_hunt}
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
       - JWT_SECRET=${JWT_SECRET:-your-secret-key-change-in-production}
       - CLIENT_URL=http://localhost:3000
+    depends_on:
+      postgres:
+        condition: service_healthy
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5001/api/v1/health"]
@@ -44,5 +70,5 @@ networks:
     driver: bridge
 
 volumes:
-  database:
+  postgres_data:
   uploads:

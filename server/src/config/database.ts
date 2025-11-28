@@ -1,16 +1,18 @@
 import { Sequelize } from "sequelize";
-import path from "path";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const dbPath =
-  process.env.DB_PATH ||
-  path.join(__dirname, "../../database/treasure_hunt.db");
+const dbHost = process.env.DB_HOST || "localhost";
+const dbPort = parseInt(process.env.DB_PORT || "5432", 10);
+const dbName = process.env.DB_NAME || "treasure_hunt";
+const dbUser = process.env.DB_USER || "postgres";
+const dbPassword = process.env.DB_PASSWORD || "postgres";
 
-const sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: dbPath,
+const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
+  host: dbHost,
+  port: dbPort,
+  dialect: "postgres",
   logging: process.env.NODE_ENV === "development" ? console.log : false,
   define: {
     timestamps: true,
