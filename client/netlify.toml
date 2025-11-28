@@ -1,14 +1,18 @@
 # Netlify configuration for ESAUM Treasure Hunt Frontend
 
 [build]
-  # Build command
-  command = "npm run build"
+  # Build command (install all deps including devDependencies)
+  command = "npm ci && npm run build"
 
   # Output directory
   publish = "dist"
 
   # Base directory
   base = "client"
+
+# Environment
+[build.environment]
+  NODE_VERSION = "18"
 
 # Redirect all requests to index.html for client-side routing (SPA)
 [[redirects]]
