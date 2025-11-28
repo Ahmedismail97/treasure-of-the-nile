@@ -27,8 +27,13 @@ if (databaseUrl) {
       ssl: process.env.NODE_ENV === "production" ? {
         require: false,
         rejectUnauthorized: false
-      } : false
-    }
+      } : false,
+      // Force IPv4 to avoid Render IPv6 connectivity issues
+      keepAlive: true,
+      keepAliveInitialDelayMillis: 10000
+    },
+    // Force IPv4 DNS resolution
+    host: process.env.NODE_ENV === "production" ? undefined : undefined
   });
 } else {
   // Use individual credentials (development)
