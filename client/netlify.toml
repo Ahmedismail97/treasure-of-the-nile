@@ -1,0 +1,31 @@
+# Netlify configuration for ESAUM Treasure Hunt Frontend
+
+[build]
+  # Build command
+  command = "npm run build"
+
+  # Output directory
+  publish = "dist"
+
+  # Base directory
+  base = "client"
+
+# Redirect all requests to index.html for client-side routing (SPA)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+
+# Cache static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
